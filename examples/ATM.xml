@@ -1,0 +1,730 @@
+<?xml version= '1.0'?>
+<!DOCTYPE TaskModel PUBLIC "http://giove.cnuce.cnr.it/CTTDTD.dtd" "..\..\..\..\..\Documenti\NetBeansProjects\ctte\ctte.config\CTTDTD.dtd">
+
+<TaskModel NameTaskModelID="C:\Documents and Settings\ari\Desktop\hiis tools\ctte\Examples\xml\ATM.xml">
+<Task Identifier="AccessATM" Category="Abstraction Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="">
+  <Name> null </Name>
+  <Type>  </Type>
+  <Description> null </Description>
+  <Precondition> null </Precondition>
+  <TimePerformance> 
+   <Max> null </Max>
+   <Min> null </Min>
+   <Average> null </Average>
+  </TimePerformance> 
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <SubTask>
+<Task Identifier="EnableAccess" Category="Abstraction Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="null">
+  <Name> null </Name>
+  <Type> null </Type>
+  <Description> null </Description>
+  <Precondition> null </Precondition>
+  <TemporalOperator name="SequentialEnabling"/>
+  <TimePerformance> 
+   <Max> null </Max>
+   <Min> null </Min>
+   <Average> null </Average>
+  </TimePerformance> 
+  <Parent name="AccessATM"/>
+  <SiblingRight name="Access"/>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <SubTask>
+<Task Identifier="InsertCard" Category="Interaction Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="null">
+  <Name> null </Name>
+  <Type> null </Type>
+  <Description> null </Description>
+  <Precondition> null </Precondition>
+  <TemporalOperator name="SequentialEnabling"/>
+  <TimePerformance> 
+   <Max> null </Max>
+   <Min> null </Min>
+   <Average> null </Average>
+  </TimePerformance> 
+  <Parent name="EnableAccess"/>
+  <SiblingRight name="RequirePassword"/>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  </Task>
+<Task Identifier="RequirePassword" Category="Application Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="null">
+  <Name> null </Name>
+  <Type> null </Type>
+  <Description> null </Description>
+  <Precondition> null </Precondition>
+  <TemporalOperator name="SequentialEnabling"/>
+  <TimePerformance> 
+   <Max> null </Max>
+   <Min> null </Min>
+   <Average> null </Average>
+  </TimePerformance> 
+  <Parent name="EnableAccess"/>
+  <SiblingLeft name="InsertCard"/>
+  <SiblingRight name="InsertPassword"/>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  </Task>
+<Task Identifier="InsertPassword" Category="Interaction Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="null">
+  <Name> null </Name>
+  <Type> null </Type>
+  <Description> null </Description>
+  <Precondition> null </Precondition>
+  <TimePerformance> 
+   <Max> null </Max>
+   <Min> null </Min>
+   <Average> null </Average>
+  </TimePerformance> 
+  <Parent name="EnableAccess"/>
+  <SiblingLeft name="RequirePassword"/>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  </Task>
+  </SubTask>
+  </Task>
+<Task Identifier="Access" Category="Abstraction Task" Iterative="true" Optional="false" PartOfCooperation="false" Frequency="null">
+  <Name> null </Name>
+  <Type> null </Type>
+  <Description> null </Description>
+  <Precondition> null </Precondition>
+  <TemporalOperator name="Disabling"/>
+  <TimePerformance> 
+   <Max> null </Max>
+   <Min> null </Min>
+   <Average> null </Average>
+  </TimePerformance> 
+  <Parent name="AccessATM"/>
+  <SiblingLeft name="EnableAccess"/>
+  <SiblingRight name="CloseAccess"/>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <SubTask>
+<Task Identifier="WithdrawCash" Category="Abstraction Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="null">
+  <Name> null </Name>
+  <Type> null </Type>
+  <Description> null </Description>
+  <Precondition> null </Precondition>
+  <TemporalOperator name="Choice"/>
+  <TimePerformance> 
+   <Max> null </Max>
+   <Min> null </Min>
+   <Average> null </Average>
+  </TimePerformance> 
+  <Parent name="Access"/>
+  <SiblingRight name="DepositCash"/>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <SubTask>
+<Task Identifier="SelectWithdrawn" Category="Interaction Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="null">
+  <Name> null </Name>
+  <Type> null </Type>
+  <Description> null </Description>
+  <Precondition> null </Precondition>
+  <TemporalOperator name="SequentialEnabling"/>
+  <TimePerformance> 
+   <Max> null </Max>
+   <Min> null </Min>
+   <Average> null </Average>
+  </TimePerformance> 
+  <Parent name="WithdrawCash"/>
+  <SiblingRight name="ShowPossibleAmounts "/>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  </Task>
+<Task Identifier="ShowPossibleAmounts" Category="Application Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="null">
+  <Name> null </Name>
+  <Type> null </Type>
+  <Description> null </Description>
+  <Precondition> null </Precondition>
+  <TemporalOperator name="SequentialEnablingInfo"/>
+  <TimePerformance> 
+   <Max> null </Max>
+   <Min> null </Min>
+   <Average> null </Average>
+  </TimePerformance> 
+  <Parent name="WithdrawCash"/>
+  <SiblingLeft name="SelectWithdrawn"/>
+  <SiblingRight name="DecideAmount"/>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  </Task>
+<Task Identifier="DecideAmount" Category="User Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="null">
+  <Name> null </Name>
+  <Type> null </Type>
+  <Description> null </Description>
+  <Precondition> null </Precondition>
+  <TemporalOperator name="SequentialEnablingInfo"/>
+  <TimePerformance> 
+   <Max> null </Max>
+   <Min> null </Min>
+   <Average> null </Average>
+  </TimePerformance> 
+  <Parent name="WithdrawCash"/>
+  <SiblingLeft name="ShowPossibleAmounts "/>
+  <SiblingRight name="SelectAmount"/>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  </Task>
+<Task Identifier="SelectAmount" Category="Interaction Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="null">
+  <Name> null </Name>
+  <Type> null </Type>
+  <Description> null </Description>
+  <Precondition> null </Precondition>
+  <TemporalOperator name="SequentialEnablingInfo"/>
+  <TimePerformance> 
+   <Max> null </Max>
+   <Min> null </Min>
+   <Average> null </Average>
+  </TimePerformance> 
+  <Parent name="WithdrawCash"/>
+  <SiblingLeft name="DecideAmount"/>
+  <SiblingRight name="ProvideCash"/>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  </Task>
+<Task Identifier="ProvideCash" Category="Application Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="null">
+  <Name> null </Name>
+  <Type> null </Type>
+  <Description> null </Description>
+  <Precondition> null </Precondition>
+  <TemporalOperator name="SequentialEnablingInfo"/>
+  <TimePerformance> 
+   <Max> null </Max>
+   <Min> null </Min>
+   <Average> null </Average>
+  </TimePerformance> 
+  <Parent name="WithdrawCash"/>
+  <SiblingLeft name="SelectAmount"/>
+  <SiblingRight name="Checkcash"/>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  </Task>
+<Task Identifier="Checkcash" Category="Interaction Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="null">
+  <Name> null </Name>
+  <Type> null </Type>
+  <Description> null </Description>
+  <Precondition> null </Precondition>
+  <TimePerformance> 
+   <Max> null </Max>
+   <Min> null </Min>
+   <Average> null </Average>
+  </TimePerformance> 
+  <Parent name="WithdrawCash"/>
+  <SiblingLeft name="ProvideCash"/>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  </Task>
+  </SubTask>
+  </Task>
+<Task Identifier="DepositCash" Category="Abstraction Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="null">
+  <Name> null </Name>
+  <Type> null </Type>
+  <Description> null </Description>
+  <Precondition> null </Precondition>
+  <TemporalOperator name="Choice"/>
+  <TimePerformance> 
+   <Max> null </Max>
+   <Min> null </Min>
+   <Average> null </Average>
+  </TimePerformance> 
+  <Parent name="Access"/>
+  <SiblingLeft name="WithdrawCash"/>
+  <SiblingRight name="GetInformation"/>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <SubTask>
+<Task Identifier="SelectDeposit" Category="Interaction Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="null">
+  <Name> null </Name>
+  <Type> null </Type>
+  <Description> Select the cash deposit operation </Description>
+  <Precondition> ATM access is enabled </Precondition>
+  <TemporalOperator name="SequentialEnabling"/>
+  <TimePerformance>
+   <Max> null </Max>
+   <Min> null </Min>
+   <Average> null </Average>
+  </TimePerformance>
+  <Parent name="DepositCash"/>
+  <SiblingRight name="InsertCash"/>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  </Task>
+<Task Identifier="InsertCash" Category="Interaction Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="null">
+  <Name> null </Name>
+  <Type> null </Type>
+  <Description> Insert cash into the ATM </Description>
+  <Precondition> Cash deposit operation has been selected </Precondition>
+  <TemporalOperator name="SequentialEnabling"/>
+  <TimePerformance>
+   <Max> null </Max>
+   <Min> null </Min>
+   <Average> null </Average>
+  </TimePerformance>
+  <Parent name="DepositCash"/>
+  <SiblingLeft name="SelectDeposit"/>
+  <SiblingRight name="ConfirmDeposit"/>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  </Task>
+<Task Identifier="ConfirmDeposit" Category="Application Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="null">
+  <Name> null </Name>
+  <Type> null </Type>
+  <Description> Confirm that the cash deposit has been accepted </Description>
+  <Precondition> Cash has been inserted </Precondition>
+  <TimePerformance>
+   <Max> null </Max>
+   <Min> null </Min>
+   <Average> null </Average>
+  </TimePerformance>
+  <Parent name="DepositCash"/>
+  <SiblingLeft name="InsertCash"/>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  </Task>
+  </SubTask>
+  </Task>
+<Task Identifier="GetInformation" Category="Abstraction Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="null">
+  <Name> null </Name>
+  <Type> null </Type>
+  <Description> null </Description>
+  <Precondition> null </Precondition>
+  <TimePerformance> 
+   <Max> null </Max>
+   <Min> null </Min>
+   <Average> null </Average>
+  </TimePerformance> 
+  <Parent name="Access"/>
+  <SiblingLeft name="DepositCash"/>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <SubTask>
+<Task Identifier="SelectInformation" Category="Interaction Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="null">
+  <Name> null </Name>
+  <Type> null </Type>
+  <Description> Select the information request </Description>
+  <Precondition> ATM access is enabled </Precondition>
+  <TemporalOperator name="SequentialEnabling"/>
+  <TimePerformance>
+   <Max> null </Max>
+   <Min> null </Min>
+   <Average> null </Average>
+  </TimePerformance>
+  <Parent name="GetInformation"/>
+  <SiblingRight name="DisplayInformation"/>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  </Task>
+<Task Identifier="DisplayInformation" Category="Application Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="null">
+  <Name> null </Name>
+  <Type> null </Type>
+  <Description> Display the requested account information </Description>
+  <Precondition> An information request has been selected </Precondition>
+  <TimePerformance>
+   <Max> null </Max>
+   <Min> null </Min>
+   <Average> null </Average>
+  </TimePerformance>
+  <Parent name="GetInformation"/>
+  <SiblingLeft name="SelectInformation"/>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  </Task>
+  </SubTask>
+  </Task>
+  </SubTask>
+  </Task>
+<Task Identifier="CloseAccess" Category="Interaction Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="null">
+  <Name> null </Name>
+  <Type> null </Type>
+  <Description> null </Description>
+  <Precondition> null </Precondition>
+  <TimePerformance> 
+   <Max> null </Max>
+   <Min> null </Min>
+   <Average> null </Average>
+  </TimePerformance> 
+  <Parent name="AccessATM"/>
+  <SiblingLeft name="Access"/>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  </Task>
+  </SubTask>
+  </Task>
+</TaskModel>

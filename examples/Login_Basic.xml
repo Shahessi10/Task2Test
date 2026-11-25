@@ -1,0 +1,313 @@
+<?xml version= '1.0'?>
+<!DOCTYPE TaskModel PUBLIC "http://giove.cnuce.cnr.it/CTTDTD.dtd" "..\..\ctte.config\CTTDTD.dtd">
+
+<TaskModel NameTaskModelID="D:\CTT\Examples\xml\Login exmple.xml">
+<Task Identifier="Login Task" Category="Abstraction Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="null">
+  <Name>name </Name>
+  <Type>null</Type>
+  <Description>null</Description>
+  <Precondition>null</Precondition>
+  <TimePerformance> 
+   <Max>null</Max>
+   <Min>null</Min>
+   <Average>null</Average>
+  </TimePerformance> 
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <SubTask>
+<Task Identifier="Open login page" Category="Interaction Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="null">
+  <Name>name </Name>
+  <Type>null</Type>
+  <Description>null</Description>
+  <Precondition>null</Precondition>
+  <TemporalOperator name="SequentialEnabling"/>
+  <TimePerformance> 
+   <Max>null</Max>
+   <Min>null</Min>
+   <Average>null</Average>
+  </TimePerformance> 
+  <Parent name="Login Task"/>
+  <SiblingRight name="Enter credentials"/>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  </Task>
+<Task Identifier="Enter credentials" Category="Interaction Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="null">
+  <Name>name </Name>
+  <Type>null</Type>
+  <Description>null</Description>
+  <Precondition>null</Precondition>
+  <TemporalOperator name="SequentialEnabling"/>
+  <TimePerformance> 
+   <Max>null</Max>
+   <Min>null</Min>
+   <Average>null</Average>
+  </TimePerformance> 
+  <Parent name="Login Task"/>
+  <SiblingLeft name="Open login page"/>
+  <SiblingRight name="Submit button"/>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <SubTask>
+<Task Identifier="Enter user name" Category="Interaction Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="null">
+  <Name>name </Name>
+  <Type>null</Type>
+  <Description>null</Description>
+  <Precondition>null</Precondition>
+  <TemporalOperator name="Interleaving"/>
+  <TimePerformance> 
+   <Max>null</Max>
+   <Min>null</Min>
+   <Average>null</Average>
+  </TimePerformance> 
+  <Parent name="Enter credentials"/>
+  <SiblingRight name="Enter Password"/>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  </Task>
+<Task Identifier="Enter Password" Category="Interaction Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="null">
+  <Name>name </Name>
+  <Type>null</Type>
+  <Description>null</Description>
+  <Precondition>null</Precondition>
+  <TimePerformance> 
+   <Max>null</Max>
+   <Min>null</Min>
+   <Average>null</Average>
+  </TimePerformance> 
+  <Parent name="Enter credentials"/>
+  <SiblingLeft name="Enter user name "/>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  </Task>
+  </SubTask>
+  </Task>
+<Task Identifier="Submit button" Category="Interaction Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="null">
+  <Name>name </Name>
+  <Type>null</Type>
+  <Description>null</Description>
+  <Precondition>null</Precondition>
+  <TemporalOperator name="SequentialEnabling"/>
+  <TimePerformance> 
+   <Max>null</Max>
+   <Min>null</Min>
+   <Average>null</Average>
+  </TimePerformance> 
+  <Parent name="Login Task"/>
+  <SiblingLeft name="Enter credentials"/>
+  <SiblingRight name="Result"/>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  </Task>
+<Task Identifier="Result" Category="Application Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="null">
+  <Name>name </Name>
+  <Type>null</Type>
+  <Description>null</Description>
+  <Precondition>null</Precondition>
+  <TimePerformance> 
+   <Max>null</Max>
+   <Min>null</Min>
+   <Average>null</Average>
+  </TimePerformance> 
+  <Parent name="Login Task"/>
+  <SiblingLeft name="Submit button"/>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <SubTask>
+<Task Identifier="Show dashboard" Category="Application Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="null">
+  <Name>name </Name>
+  <Type>null</Type>
+  <Description>null</Description>
+  <Precondition>null</Precondition>
+  <TemporalOperator name="Choice"/>
+  <TimePerformance> 
+   <Max>null</Max>
+   <Min>null</Min>
+   <Average>null</Average>
+  </TimePerformance> 
+  <Parent name="Result"/>
+  <SiblingRight name="Error Message"/>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  </Task>
+<Task Identifier="Error Message" Category="Application Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="null">
+  <Name>name </Name>
+  <Type>null</Type>
+  <Description>null</Description>
+  <Precondition>null</Precondition>
+  <TimePerformance> 
+   <Max>null</Max>
+   <Min>null</Min>
+   <Average>null</Average>
+  </TimePerformance> 
+  <Parent name="Result"/>
+  <SiblingLeft name="Show dashboard"/>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  <Object name="" class="" type="" access_mode="" cardinality="">
+  <InputAction Description="null" From="null"/>
+  <OutputAction Description="null" To="null"/>
+  </Object>
+  </Task>
+  </SubTask>
+  </Task>
+  </SubTask>
+  </Task>
+</TaskModel>

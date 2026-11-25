@@ -1,0 +1,659 @@
+<?xml version='1.0'?>
+<!DOCTYPE TaskModel PUBLIC "http://giove.cnuce.cnr.it/CTTDTD.dtd" "..\..\ctte.config\CTTDTD.dtd">
+
+<TaskModel NameTaskModelID="Ordering Pizza - Task2Test Validation">
+  <Task Identifier="Order Pizza" Category="Abstraction Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="null">
+    <Name>Order Pizza</Name>
+    <Type>null</Type>
+    <Description>null</Description>
+    <Precondition>null</Precondition>
+    <TimePerformance>
+      <Max>null</Max>
+      <Min>null</Min>
+      <Average>null</Average>
+    </TimePerformance>
+    <Object name="" class="" type="" access_mode="" cardinality="">
+      <InputAction Description="null" From="null"/>
+      <OutputAction Description="null" To="null"/>
+    </Object>
+    <Object name="" class="" type="" access_mode="" cardinality="">
+      <InputAction Description="null" From="null"/>
+      <OutputAction Description="null" To="null"/>
+    </Object>
+    <Object name="" class="" type="" access_mode="" cardinality="">
+      <InputAction Description="null" From="null"/>
+      <OutputAction Description="null" To="null"/>
+    </Object>
+    <Object name="" class="" type="" access_mode="" cardinality="">
+      <InputAction Description="null" From="null"/>
+      <OutputAction Description="null" To="null"/>
+    </Object>
+    <Object name="" class="" type="" access_mode="" cardinality="">
+      <InputAction Description="null" From="null"/>
+      <OutputAction Description="null" To="null"/>
+    </Object>
+    <SubTask>
+    <Task Identifier="Build Order" Category="Abstraction Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="null">
+      <Name>Build Order</Name>
+      <Type>null</Type>
+      <Description>null</Description>
+      <Precondition>null</Precondition>
+      <TemporalOperator name="SequentialEnabling"/>
+      <TimePerformance>
+        <Max>null</Max>
+        <Min>null</Min>
+        <Average>null</Average>
+      </TimePerformance>
+      <Parent name="Order Pizza"/>
+      <SiblingRight name="Display Order"/>
+      <Object name="" class="" type="" access_mode="" cardinality="">
+        <InputAction Description="null" From="null"/>
+        <OutputAction Description="null" To="null"/>
+      </Object>
+      <Object name="" class="" type="" access_mode="" cardinality="">
+        <InputAction Description="null" From="null"/>
+        <OutputAction Description="null" To="null"/>
+      </Object>
+      <Object name="" class="" type="" access_mode="" cardinality="">
+        <InputAction Description="null" From="null"/>
+        <OutputAction Description="null" To="null"/>
+      </Object>
+      <Object name="" class="" type="" access_mode="" cardinality="">
+        <InputAction Description="null" From="null"/>
+        <OutputAction Description="null" To="null"/>
+      </Object>
+      <Object name="" class="" type="" access_mode="" cardinality="">
+        <InputAction Description="null" From="null"/>
+        <OutputAction Description="null" To="null"/>
+      </Object>
+      <SubTask>
+      <Task Identifier="Add Pizza" Category="Abstraction Task" Iterative="true" Optional="false" PartOfCooperation="false" Frequency="null">
+        <Name>Add Pizza</Name>
+        <Type>null</Type>
+        <Description>null</Description>
+        <Precondition>null</Precondition>
+        <TimePerformance>
+          <Max>null</Max>
+          <Min>null</Min>
+          <Average>null</Average>
+        </TimePerformance>
+        <Parent name="Build Order"/>
+        <Object name="" class="" type="" access_mode="" cardinality="">
+          <InputAction Description="null" From="null"/>
+          <OutputAction Description="null" To="null"/>
+        </Object>
+        <Object name="" class="" type="" access_mode="" cardinality="">
+          <InputAction Description="null" From="null"/>
+          <OutputAction Description="null" To="null"/>
+        </Object>
+        <Object name="" class="" type="" access_mode="" cardinality="">
+          <InputAction Description="null" From="null"/>
+          <OutputAction Description="null" To="null"/>
+        </Object>
+        <Object name="" class="" type="" access_mode="" cardinality="">
+          <InputAction Description="null" From="null"/>
+          <OutputAction Description="null" To="null"/>
+        </Object>
+        <Object name="" class="" type="" access_mode="" cardinality="">
+          <InputAction Description="null" From="null"/>
+          <OutputAction Description="null" To="null"/>
+        </Object>
+        <SubTask>
+        <Task Identifier="Select Pizza" Category="Interaction Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="null">
+          <Name>Select Pizza</Name>
+          <Type>null</Type>
+          <Description>null</Description>
+          <Precondition>null</Precondition>
+          <TemporalOperator name="SequentialEnabling"/>
+          <TimePerformance>
+            <Max>null</Max>
+            <Min>null</Min>
+            <Average>null</Average>
+          </TimePerformance>
+          <Parent name="Add Pizza"/>
+          <SiblingRight name="Extra Topping"/>
+          <Object name="" class="" type="" access_mode="" cardinality="">
+            <InputAction Description="null" From="null"/>
+            <OutputAction Description="null" To="null"/>
+          </Object>
+          <Object name="" class="" type="" access_mode="" cardinality="">
+            <InputAction Description="null" From="null"/>
+            <OutputAction Description="null" To="null"/>
+          </Object>
+          <Object name="" class="" type="" access_mode="" cardinality="">
+            <InputAction Description="null" From="null"/>
+            <OutputAction Description="null" To="null"/>
+          </Object>
+          <Object name="" class="" type="" access_mode="" cardinality="">
+            <InputAction Description="null" From="null"/>
+            <OutputAction Description="null" To="null"/>
+          </Object>
+          <Object name="" class="" type="" access_mode="" cardinality="">
+            <InputAction Description="null" From="null"/>
+            <OutputAction Description="null" To="null"/>
+          </Object>
+        </Task>
+        <Task Identifier="Extra Topping" Category="Interaction Task" Iterative="false" Optional="true" PartOfCooperation="false" Frequency="null">
+          <Name>Extra Topping</Name>
+          <Type>null</Type>
+          <Description>null</Description>
+          <Precondition>null</Precondition>
+          <TemporalOperator name="SequentialEnabling"/>
+          <TimePerformance>
+            <Max>null</Max>
+            <Min>null</Min>
+            <Average>null</Average>
+          </TimePerformance>
+          <Parent name="Add Pizza"/>
+          <SiblingLeft name="Select Pizza"/>
+          <SiblingRight name="Specify Order Amount"/>
+          <Object name="" class="" type="" access_mode="" cardinality="">
+            <InputAction Description="null" From="null"/>
+            <OutputAction Description="null" To="null"/>
+          </Object>
+          <Object name="" class="" type="" access_mode="" cardinality="">
+            <InputAction Description="null" From="null"/>
+            <OutputAction Description="null" To="null"/>
+          </Object>
+          <Object name="" class="" type="" access_mode="" cardinality="">
+            <InputAction Description="null" From="null"/>
+            <OutputAction Description="null" To="null"/>
+          </Object>
+          <Object name="" class="" type="" access_mode="" cardinality="">
+            <InputAction Description="null" From="null"/>
+            <OutputAction Description="null" To="null"/>
+          </Object>
+          <Object name="" class="" type="" access_mode="" cardinality="">
+            <InputAction Description="null" From="null"/>
+            <OutputAction Description="null" To="null"/>
+          </Object>
+        </Task>
+        <Task Identifier="Specify Order Amount" Category="Interaction Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="null">
+          <Name>Specify Order Amount</Name>
+          <Type>null</Type>
+          <Description>null</Description>
+          <Precondition>null</Precondition>
+          <TimePerformance>
+            <Max>null</Max>
+            <Min>null</Min>
+            <Average>null</Average>
+          </TimePerformance>
+          <Parent name="Add Pizza"/>
+          <SiblingLeft name="Extra Topping"/>
+          <Object name="" class="" type="" access_mode="" cardinality="">
+            <InputAction Description="null" From="null"/>
+            <OutputAction Description="null" To="null"/>
+          </Object>
+          <Object name="" class="" type="" access_mode="" cardinality="">
+            <InputAction Description="null" From="null"/>
+            <OutputAction Description="null" To="null"/>
+          </Object>
+          <Object name="" class="" type="" access_mode="" cardinality="">
+            <InputAction Description="null" From="null"/>
+            <OutputAction Description="null" To="null"/>
+          </Object>
+          <Object name="" class="" type="" access_mode="" cardinality="">
+            <InputAction Description="null" From="null"/>
+            <OutputAction Description="null" To="null"/>
+          </Object>
+          <Object name="" class="" type="" access_mode="" cardinality="">
+            <InputAction Description="null" From="null"/>
+            <OutputAction Description="null" To="null"/>
+          </Object>
+        </Task>
+        </SubTask>
+      </Task>
+      </SubTask>
+    </Task>
+    <Task Identifier="Display Order" Category="Application Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="null">
+      <Name>Display Order</Name>
+      <Type>null</Type>
+      <Description>null</Description>
+      <Precondition>null</Precondition>
+      <TemporalOperator name="SequentialEnabling"/>
+      <TimePerformance>
+        <Max>null</Max>
+        <Min>null</Min>
+        <Average>null</Average>
+      </TimePerformance>
+      <Parent name="Order Pizza"/>
+      <SiblingLeft name="Build Order"/>
+      <SiblingRight name="Review Order"/>
+      <Object name="" class="" type="" access_mode="" cardinality="">
+        <InputAction Description="null" From="null"/>
+        <OutputAction Description="null" To="null"/>
+      </Object>
+      <Object name="" class="" type="" access_mode="" cardinality="">
+        <InputAction Description="null" From="null"/>
+        <OutputAction Description="null" To="null"/>
+      </Object>
+      <Object name="" class="" type="" access_mode="" cardinality="">
+        <InputAction Description="null" From="null"/>
+        <OutputAction Description="null" To="null"/>
+      </Object>
+      <Object name="" class="" type="" access_mode="" cardinality="">
+        <InputAction Description="null" From="null"/>
+        <OutputAction Description="null" To="null"/>
+      </Object>
+      <Object name="" class="" type="" access_mode="" cardinality="">
+        <InputAction Description="null" From="null"/>
+        <OutputAction Description="null" To="null"/>
+      </Object>
+    </Task>
+    <Task Identifier="Review Order" Category="Abstraction Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="null">
+      <Name>Review Order</Name>
+      <Type>null</Type>
+      <Description>null</Description>
+      <Precondition>null</Precondition>
+      <TemporalOperator name="SequentialEnabling"/>
+      <TimePerformance>
+        <Max>null</Max>
+        <Min>null</Min>
+        <Average>null</Average>
+      </TimePerformance>
+      <Parent name="Order Pizza"/>
+      <SiblingLeft name="Display Order"/>
+      <SiblingRight name="Complete Order"/>
+      <Object name="" class="" type="" access_mode="" cardinality="">
+        <InputAction Description="null" From="null"/>
+        <OutputAction Description="null" To="null"/>
+      </Object>
+      <Object name="" class="" type="" access_mode="" cardinality="">
+        <InputAction Description="null" From="null"/>
+        <OutputAction Description="null" To="null"/>
+      </Object>
+      <Object name="" class="" type="" access_mode="" cardinality="">
+        <InputAction Description="null" From="null"/>
+        <OutputAction Description="null" To="null"/>
+      </Object>
+      <Object name="" class="" type="" access_mode="" cardinality="">
+        <InputAction Description="null" From="null"/>
+        <OutputAction Description="null" To="null"/>
+      </Object>
+      <Object name="" class="" type="" access_mode="" cardinality="">
+        <InputAction Description="null" From="null"/>
+        <OutputAction Description="null" To="null"/>
+      </Object>
+      <SubTask>
+        <Task Identifier="Modify Order" Category="Interaction Task" Iterative="true" Optional="false" PartOfCooperation="false" Frequency="null">
+          <Name>Modify Order</Name>
+          <Type>null</Type>
+          <Description>null</Description>
+          <Precondition>null</Precondition>
+          <TemporalOperator name="Disabling"/>
+          <TimePerformance>
+            <Max>null</Max>
+            <Min>null</Min>
+            <Average>null</Average>
+          </TimePerformance>
+          <Parent name="Review Order"/>
+          <SiblingRight name="Confirm Order"/>
+          <Object name="" class="" type="" access_mode="" cardinality="">
+            <InputAction Description="null" From="null"/>
+            <OutputAction Description="null" To="null"/>
+          </Object>
+          <Object name="" class="" type="" access_mode="" cardinality="">
+            <InputAction Description="null" From="null"/>
+            <OutputAction Description="null" To="null"/>
+          </Object>
+          <Object name="" class="" type="" access_mode="" cardinality="">
+            <InputAction Description="null" From="null"/>
+            <OutputAction Description="null" To="null"/>
+          </Object>
+          <Object name="" class="" type="" access_mode="" cardinality="">
+            <InputAction Description="null" From="null"/>
+            <OutputAction Description="null" To="null"/>
+          </Object>
+          <Object name="" class="" type="" access_mode="" cardinality="">
+            <InputAction Description="null" From="null"/>
+            <OutputAction Description="null" To="null"/>
+          </Object>
+        </Task>
+        <Task Identifier="Confirm Order" Category="Interaction Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="null">
+          <Name>Confirm Order</Name>
+          <Type>null</Type>
+          <Description>null</Description>
+          <Precondition>null</Precondition>
+          <TimePerformance>
+            <Max>null</Max>
+            <Min>null</Min>
+            <Average>null</Average>
+          </TimePerformance>
+          <Parent name="Review Order"/>
+          <SiblingLeft name="Modify Order"/>
+          <Object name="" class="" type="" access_mode="" cardinality="">
+            <InputAction Description="null" From="null"/>
+            <OutputAction Description="null" To="null"/>
+          </Object>
+          <Object name="" class="" type="" access_mode="" cardinality="">
+            <InputAction Description="null" From="null"/>
+            <OutputAction Description="null" To="null"/>
+          </Object>
+          <Object name="" class="" type="" access_mode="" cardinality="">
+            <InputAction Description="null" From="null"/>
+            <OutputAction Description="null" To="null"/>
+          </Object>
+          <Object name="" class="" type="" access_mode="" cardinality="">
+            <InputAction Description="null" From="null"/>
+            <OutputAction Description="null" To="null"/>
+          </Object>
+          <Object name="" class="" type="" access_mode="" cardinality="">
+            <InputAction Description="null" From="null"/>
+            <OutputAction Description="null" To="null"/>
+          </Object>
+        </Task>
+      </SubTask>
+    </Task>
+    <Task Identifier="Complete Order" Category="Abstraction Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="null">
+      <Name>Complete Order</Name>
+      <Type>null</Type>
+      <Description>null</Description>
+      <Precondition>null</Precondition>
+      <TemporalOperator name="SequentialEnabling"/>
+      <TimePerformance>
+        <Max>null</Max>
+        <Min>null</Min>
+        <Average>null</Average>
+      </TimePerformance>
+      <Parent name="Order Pizza"/>
+      <SiblingLeft name="Review Order"/>
+      <SiblingRight name="Process Order"/>
+      <Object name="" class="" type="" access_mode="" cardinality="">
+        <InputAction Description="null" From="null"/>
+        <OutputAction Description="null" To="null"/>
+      </Object>
+      <Object name="" class="" type="" access_mode="" cardinality="">
+        <InputAction Description="null" From="null"/>
+        <OutputAction Description="null" To="null"/>
+      </Object>
+      <Object name="" class="" type="" access_mode="" cardinality="">
+        <InputAction Description="null" From="null"/>
+        <OutputAction Description="null" To="null"/>
+      </Object>
+      <Object name="" class="" type="" access_mode="" cardinality="">
+        <InputAction Description="null" From="null"/>
+        <OutputAction Description="null" To="null"/>
+      </Object>
+      <Object name="" class="" type="" access_mode="" cardinality="">
+        <InputAction Description="null" From="null"/>
+        <OutputAction Description="null" To="null"/>
+      </Object>
+      <SubTask>
+        <Task Identifier="Order Detail" Category="Abstraction Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="null">
+          <Name>Order Detail</Name>
+          <Type>null</Type>
+          <Description>null</Description>
+          <Precondition>null</Precondition>
+          <TemporalOperator name="SequentialEnabling"/>
+          <TimePerformance>
+            <Max>null</Max>
+            <Min>null</Min>
+            <Average>null</Average>
+          </TimePerformance>
+          <Parent name="Complete Order"/>
+          <SiblingRight name="Choose Payment Method"/>
+          <Object name="" class="" type="" access_mode="" cardinality="">
+            <InputAction Description="null" From="null"/>
+            <OutputAction Description="null" To="null"/>
+          </Object>
+          <Object name="" class="" type="" access_mode="" cardinality="">
+            <InputAction Description="null" From="null"/>
+            <OutputAction Description="null" To="null"/>
+          </Object>
+          <Object name="" class="" type="" access_mode="" cardinality="">
+            <InputAction Description="null" From="null"/>
+            <OutputAction Description="null" To="null"/>
+          </Object>
+          <Object name="" class="" type="" access_mode="" cardinality="">
+            <InputAction Description="null" From="null"/>
+            <OutputAction Description="null" To="null"/>
+          </Object>
+          <Object name="" class="" type="" access_mode="" cardinality="">
+            <InputAction Description="null" From="null"/>
+            <OutputAction Description="null" To="null"/>
+          </Object>
+          <SubTask>
+          <Task Identifier="Enter Name" Category="Interaction Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="null">
+            <Name>Enter Name</Name>
+            <Type>null</Type>
+            <Description>null</Description>
+            <Precondition>null</Precondition>
+            <TemporalOperator name="Interleaving"/>
+            <TimePerformance>
+              <Max>null</Max>
+              <Min>null</Min>
+              <Average>null</Average>
+            </TimePerformance>
+            <Parent name="Order Detail"/>
+            <SiblingRight name="Enter Address"/>
+            <Object name="" class="" type="" access_mode="" cardinality="">
+              <InputAction Description="null" From="null"/>
+              <OutputAction Description="null" To="null"/>
+            </Object>
+            <Object name="" class="" type="" access_mode="" cardinality="">
+              <InputAction Description="null" From="null"/>
+              <OutputAction Description="null" To="null"/>
+            </Object>
+            <Object name="" class="" type="" access_mode="" cardinality="">
+              <InputAction Description="null" From="null"/>
+              <OutputAction Description="null" To="null"/>
+            </Object>
+            <Object name="" class="" type="" access_mode="" cardinality="">
+              <InputAction Description="null" From="null"/>
+              <OutputAction Description="null" To="null"/>
+            </Object>
+            <Object name="" class="" type="" access_mode="" cardinality="">
+              <InputAction Description="null" From="null"/>
+              <OutputAction Description="null" To="null"/>
+            </Object>
+          </Task>
+          <Task Identifier="Enter Address" Category="Interaction Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="null">
+            <Name>Enter Address</Name>
+            <Type>null</Type>
+            <Description>null</Description>
+            <Precondition>null</Precondition>
+            <TimePerformance>
+              <Max>null</Max>
+              <Min>null</Min>
+              <Average>null</Average>
+            </TimePerformance>
+            <Parent name="Order Detail"/>
+            <SiblingLeft name="Enter Name"/>
+            <Object name="" class="" type="" access_mode="" cardinality="">
+              <InputAction Description="null" From="null"/>
+              <OutputAction Description="null" To="null"/>
+            </Object>
+            <Object name="" class="" type="" access_mode="" cardinality="">
+              <InputAction Description="null" From="null"/>
+              <OutputAction Description="null" To="null"/>
+            </Object>
+            <Object name="" class="" type="" access_mode="" cardinality="">
+              <InputAction Description="null" From="null"/>
+              <OutputAction Description="null" To="null"/>
+            </Object>
+            <Object name="" class="" type="" access_mode="" cardinality="">
+              <InputAction Description="null" From="null"/>
+              <OutputAction Description="null" To="null"/>
+            </Object>
+            <Object name="" class="" type="" access_mode="" cardinality="">
+              <InputAction Description="null" From="null"/>
+              <OutputAction Description="null" To="null"/>
+            </Object>
+          </Task>
+          </SubTask>
+        </Task>
+        <Task Identifier="Choose Payment Method" Category="Abstraction Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="null">
+          <Name>Choose Payment Method</Name>
+          <Type>null</Type>
+          <Description>null</Description>
+          <Precondition>null</Precondition>
+          <TemporalOperator name="SequentialEnabling"/>
+          <TimePerformance>
+            <Max>null</Max>
+            <Min>null</Min>
+            <Average>null</Average>
+          </TimePerformance>
+          <Parent name="Complete Order"/>
+          <SiblingLeft name="Order Detail"/>
+          <SiblingRight name="Validate Payment"/>
+          <Object name="" class="" type="" access_mode="" cardinality="">
+            <InputAction Description="null" From="null"/>
+            <OutputAction Description="null" To="null"/>
+          </Object>
+          <Object name="" class="" type="" access_mode="" cardinality="">
+            <InputAction Description="null" From="null"/>
+            <OutputAction Description="null" To="null"/>
+          </Object>
+          <Object name="" class="" type="" access_mode="" cardinality="">
+            <InputAction Description="null" From="null"/>
+            <OutputAction Description="null" To="null"/>
+          </Object>
+          <Object name="" class="" type="" access_mode="" cardinality="">
+            <InputAction Description="null" From="null"/>
+            <OutputAction Description="null" To="null"/>
+          </Object>
+          <Object name="" class="" type="" access_mode="" cardinality="">
+            <InputAction Description="null" From="null"/>
+            <OutputAction Description="null" To="null"/>
+          </Object>
+          <SubTask>
+          <Task Identifier="PayPal" Category="Interaction Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="null">
+            <Name>PayPal</Name>
+            <Type>null</Type>
+            <Description>null</Description>
+            <Precondition>null</Precondition>
+            <TemporalOperator name="Choice"/>
+            <TimePerformance>
+              <Max>null</Max>
+              <Min>null</Min>
+              <Average>null</Average>
+            </TimePerformance>
+            <Parent name="Choose Payment Method"/>
+            <SiblingRight name="Bank Card"/>
+            <Object name="" class="" type="" access_mode="" cardinality="">
+              <InputAction Description="null" From="null"/>
+              <OutputAction Description="null" To="null"/>
+            </Object>
+            <Object name="" class="" type="" access_mode="" cardinality="">
+              <InputAction Description="null" From="null"/>
+              <OutputAction Description="null" To="null"/>
+            </Object>
+            <Object name="" class="" type="" access_mode="" cardinality="">
+              <InputAction Description="null" From="null"/>
+              <OutputAction Description="null" To="null"/>
+            </Object>
+            <Object name="" class="" type="" access_mode="" cardinality="">
+              <InputAction Description="null" From="null"/>
+              <OutputAction Description="null" To="null"/>
+            </Object>
+            <Object name="" class="" type="" access_mode="" cardinality="">
+              <InputAction Description="null" From="null"/>
+              <OutputAction Description="null" To="null"/>
+            </Object>
+          </Task>
+          <Task Identifier="Bank Card" Category="Interaction Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="null">
+            <Name>Bank Card</Name>
+            <Type>null</Type>
+            <Description>null</Description>
+            <Precondition>null</Precondition>
+            <TimePerformance>
+              <Max>null</Max>
+              <Min>null</Min>
+              <Average>null</Average>
+            </TimePerformance>
+            <Parent name="Choose Payment Method"/>
+            <SiblingLeft name="PayPal"/>
+            <Object name="" class="" type="" access_mode="" cardinality="">
+              <InputAction Description="null" From="null"/>
+              <OutputAction Description="null" To="null"/>
+            </Object>
+            <Object name="" class="" type="" access_mode="" cardinality="">
+              <InputAction Description="null" From="null"/>
+              <OutputAction Description="null" To="null"/>
+            </Object>
+            <Object name="" class="" type="" access_mode="" cardinality="">
+              <InputAction Description="null" From="null"/>
+              <OutputAction Description="null" To="null"/>
+            </Object>
+            <Object name="" class="" type="" access_mode="" cardinality="">
+              <InputAction Description="null" From="null"/>
+              <OutputAction Description="null" To="null"/>
+            </Object>
+            <Object name="" class="" type="" access_mode="" cardinality="">
+              <InputAction Description="null" From="null"/>
+              <OutputAction Description="null" To="null"/>
+            </Object>
+          </Task>
+          </SubTask>
+        </Task>
+        <Task Identifier="Validate Payment" Category="Application Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="null">
+          <Name>Validate Payment</Name>
+          <Type>null</Type>
+          <Description>null</Description>
+          <Precondition>null</Precondition>
+          <TimePerformance>
+            <Max>null</Max>
+            <Min>null</Min>
+            <Average>null</Average>
+          </TimePerformance>
+          <Parent name="Complete Order"/>
+          <SiblingLeft name="Choose Payment Method"/>
+          <Object name="" class="" type="" access_mode="" cardinality="">
+            <InputAction Description="null" From="null"/>
+            <OutputAction Description="null" To="null"/>
+          </Object>
+          <Object name="" class="" type="" access_mode="" cardinality="">
+            <InputAction Description="null" From="null"/>
+            <OutputAction Description="null" To="null"/>
+          </Object>
+          <Object name="" class="" type="" access_mode="" cardinality="">
+            <InputAction Description="null" From="null"/>
+            <OutputAction Description="null" To="null"/>
+          </Object>
+          <Object name="" class="" type="" access_mode="" cardinality="">
+            <InputAction Description="null" From="null"/>
+            <OutputAction Description="null" To="null"/>
+          </Object>
+          <Object name="" class="" type="" access_mode="" cardinality="">
+            <InputAction Description="null" From="null"/>
+            <OutputAction Description="null" To="null"/>
+          </Object>
+        </Task>
+      </SubTask>
+    </Task>
+    <Task Identifier="Process Order" Category="Application Task" Iterative="false" Optional="false" PartOfCooperation="false" Frequency="null">
+      <Name>Process Order</Name>
+      <Type>null</Type>
+      <Description>null</Description>
+      <Precondition>null</Precondition>
+      <TimePerformance>
+        <Max>null</Max>
+        <Min>null</Min>
+        <Average>null</Average>
+      </TimePerformance>
+      <Parent name="Order Pizza"/>
+      <SiblingLeft name="Complete Order"/>
+      <Object name="" class="" type="" access_mode="" cardinality="">
+        <InputAction Description="null" From="null"/>
+        <OutputAction Description="null" To="null"/>
+      </Object>
+      <Object name="" class="" type="" access_mode="" cardinality="">
+        <InputAction Description="null" From="null"/>
+        <OutputAction Description="null" To="null"/>
+      </Object>
+      <Object name="" class="" type="" access_mode="" cardinality="">
+        <InputAction Description="null" From="null"/>
+        <OutputAction Description="null" To="null"/>
+      </Object>
+      <Object name="" class="" type="" access_mode="" cardinality="">
+        <InputAction Description="null" From="null"/>
+        <OutputAction Description="null" To="null"/>
+      </Object>
+      <Object name="" class="" type="" access_mode="" cardinality="">
+        <InputAction Description="null" From="null"/>
+        <OutputAction Description="null" To="null"/>
+      </Object>
+    </Task>
+    </SubTask>
+  </Task>
+</TaskModel>
