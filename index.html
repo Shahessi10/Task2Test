@@ -1,0 +1,2205 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Task2Test Prototype</title>
+  <style>
+:root {
+  --bg: #f5f6fa;
+  --panel: #ffffff;
+  --text: #1d1f27;
+  --muted: #6d7280;
+  --border: #d9dde7;
+  --accent: #273b7a;
+  --accent-light: #eef2ff;
+  --danger: #b42318;
+  --success: #097969;
+  --warn: #a15c00;
+  --code: #111827;
+  --chip: #f4f5f8;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  background: var(--accent);
+  color: white;
+  align-items: center;
+}
+.app-header h1 { margin: 0; font-size: 1.8rem; }
+.app-header p { margin: .25rem 0 0; color: #dfe6ff; }
+.header-actions { display: flex; flex-wrap: wrap; gap: .5rem; }
+
+button,
+.file-button {
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: white;
+  padding: .55rem .8rem;
+  border-radius: .5rem;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: .9rem;
+}
+button:hover:not(:disabled), .file-button:hover { filter: brightness(1.05); }
+button:disabled { opacity: .45; cursor: not-allowed; }
+button.secondary { background: white; color: var(--accent); }
+.header-actions button { background: white; color: var(--accent); }
+.file-button { display: inline-flex; align-items: center; }
+.file-button input { display: none; }
+
+.layout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,.04);
+}
+.wide { grid-column: span 2; }
+.panel-title {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: .6rem;
+  margin-bottom: .8rem;
+  align-items: flex-start;
+}
+.panel-title h2 { margin: 0; font-size: 1.1rem; }
+.panel-title span { color: var(--muted); font-size: .9rem; text-align: right; }
+.hint { color: var(--muted); line-height: 1.45; }
+.muted { color: var(--muted); }
+.empty { color: var(--muted); font-style: italic; }
+
+.upload-box {
+  display: flex;
+  gap: .7rem;
+  align-items: center;
+  flex-wrap: wrap;
+  border: 1px solid var(--border);
+  background: #fafbfe;
+  border-radius: .75rem;
+  padding: .8rem;
+}
+.details-box { margin-top: .8rem; }
+.details-box summary { cursor: pointer; color: var(--accent); font-weight: 600; }
+
+.row { margin-top: .8rem; display: flex; gap: .5rem; flex-wrap: wrap; }
+.status {
+  min-height: 2rem;
+  margin-top: .65rem;
+  color: var(--muted);
+  white-space: pre-wrap;
+  line-height: 1.45;
+}
+.status.ok { color: var(--success); }
+.status.warn { color: var(--warn); }
+.status.error { color: var(--danger); }
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(125px, 1fr));
+  gap: .6rem;
+  margin-bottom: .8rem;
+}
+.metric {
+  border: 1px solid var(--border);
+  border-radius: .75rem;
+  padding: .7rem;
+  background: var(--accent-light);
+}
+.metric strong { display: block; font-size: 1.25rem; margin-bottom: .15rem; }
+.metric span { color: var(--muted); font-size: .8rem; }
+
+.small-table { overflow-x: auto; }
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+th, td { border: 1px solid var(--border); padding: .55rem; text-align: left; vertical-align: top; }
+th { background: var(--accent-light); }
+
+.tree {
+  max-height: 560px;
+  overflow: auto;
+  border: 1px solid var(--border);
+  border-radius: .75rem;
+  padding: .65rem .8rem;
+  background: #fcfcfe;
+}
+.tree.empty { border-style: dashed; }
+.tree ul { list-style: none; margin: .25rem 0 .25rem .8rem; padding-left: 1rem; border-left: 1px solid var(--border); }
+.tree li { margin: .35rem 0; }
+.task-label { display: inline-flex; flex-wrap: wrap; gap: .3rem; align-items: center; }
+.badge,
+.chip {
+  display: inline-block;
+  font-size: .72rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: .15rem .42rem;
+  background: white;
+  color: var(--muted);
+}
+.chip.op { color: var(--accent); background: var(--accent-light); }
+.chip.iter { color: #31507a; background: #eef5ff; }
+.chip.opt { color: #7a2562; background: #fff0fa; }
+
+.reduction-global {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: .8rem;
+  padding: .7rem;
+  border: 1px solid var(--border);
+  border-radius: .75rem;
+  background: #fafbfe;
+}
+.reduction-global label,
+.mutation-grid label,
+.operator-mutation label {
+  display: flex;
+  gap: .4rem;
+  align-items: center;
+}
+.reduction-controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }
+.reduction-card {
+  border: 1px solid var(--border);
+  border-radius: .75rem;
+  padding: .8rem;
+  background: white;
+}
+.reduction-card h3 { margin: 0 0 .35rem; font-size: 1rem; }
+.reduction-card p { margin: .25rem 0; color: var(--muted); font-size: .88rem; line-height: 1.4; }
+.reduction-card label { display: inline-flex; gap: .35rem; align-items: center; margin: .35rem .7rem .2rem 0; }
+.reduced-model-box { margin-top: 1rem; border-top: 1px solid var(--border); padding-top: .85rem; }
+.subsection-title { font-weight: 700; font-size: 1rem; }
+
+.mutation-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .6rem;
+  margin: .7rem 0;
+}
+.mutation-grid label {
+  border: 1px solid var(--border);
+  border-radius: .65rem;
+  padding: .6rem;
+  background: #fafbfe;
+}
+.operator-mutation {
+  margin-top: .75rem;
+  padding: .75rem;
+  border: 1px solid var(--border);
+  border-radius: .75rem;
+  background: #fafbfe;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .7rem;
+  align-items: center;
+}
+.disabled-block { opacity: .5; pointer-events: none; }
+
+.case-list { display: grid; gap: .75rem; max-height: 680px; overflow: auto; padding-right: .15rem; }
+.case-card {
+  border: 1px solid var(--border);
+  border-radius: .75rem;
+  padding: .8rem;
+  background: var(--accent-light);
+}
+.case-card.normative { border-left: 4px solid var(--success); }
+.case-card.deviating { border-left: 4px solid var(--danger); }
+.case-card.still-normative { border-left: 4px solid var(--warn); }
+.case-card h3 { margin: 0 0 .4rem; font-size: 1rem; }
+.case-card ol { margin: .4rem 0 0 1.2rem; }
+.case-card li { margin: .25rem 0; }
+.case-meta { color: var(--muted); font-size: .82rem; margin-bottom: .35rem; }
+.case-section { margin-top: .65rem; padding-top: .55rem; border-top: 1px solid var(--border); }
+.case-section-title { font-size: .82rem; font-weight: 700; color: var(--text); margin-bottom: .3rem; }
+
+.code-output {
+  background: var(--code);
+  color: #f9fafb;
+  border-radius: .75rem;
+  padding: .9rem;
+  overflow: auto;
+  min-height: 200px;
+  max-height: 620px;
+  white-space: pre-wrap;
+}
+
+input[type="number"],
+input[type="text"],
+select {
+  border: 1px solid var(--border);
+  border-radius: .4rem;
+  padding: .4rem .5rem;
+  background: white;
+  min-width: 120px;
+}
+input[type="checkbox"] { width: auto; }
+.mapping-input { width: 100%; min-width: 120px; }
+.warning-box { background: #fff7e8; border: 1px solid #f4c36a; border-radius: .65rem; padding: .65rem; color: #7b4a00; }
+
+footer { text-align: center; color: var(--muted); padding: 1rem; }
+
+@media (max-width: 1050px) {
+  .reduction-controls { grid-template-columns: 1fr; }
+  .mutation-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+  .wide { grid-column: span 1; }
+  .app-header { flex-direction: column; align-items: flex-start; }
+}
+
+</style>
+</head>
+<body>
+  <header class="app-header">
+    <div>
+      <h1>Task2Test</h1>
+      <p>Prototypical tool support for task-based GUI testing</p>
+    </div>
+    <div class="header-actions">
+      <button id="headerChooseXml" type="button">Choose CTTE XML</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="panel" id="importPanel">
+      <div class="panel-title">
+        <h2>1. Original task model</h2>
+        <span>CTTE XML input</span>
+      </div>
+      <p class="hint">Upload the original task model exported from CTTE. Import, analysis, normative-case generation, and mutation generation start automatically.</p>
+      <div class="upload-box">
+        <label class="file-button">
+          <input id="xmlFile" type="file" accept=".xml,text/xml,application/xml" />
+          Choose CTTE XML
+        </label>
+        <span id="fileName" class="muted">No file selected.</span>
+      </div>
+      <div id="importStatus" class="status">Choose a CTTE XML file to begin.</div>
+      <details class="details-box">
+        <summary>Supported CTTE constructs</summary>
+        <p class="hint">SequentialEnabling, SequentialEnablingInfo, Interleaving, Choice, Disabling, Iterative, and Optional. OrderIndependence is also recognized if present in imported XML.</p>
+      </details>
+    </section>
+
+    <section class="panel wide">
+      <div class="panel-title">
+        <h2>2. Original model structure</h2>
+        <span>hierarchy and operators</span>
+      </div>
+      <p class="hint">The uploaded CTTE hierarchy, task categories, temporal relations, iteration, and optionality are shown directly from the XML.</p>
+      <div id="treeOutput" class="tree empty">No model loaded.</div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-title">
+        <h2>3. Normative behaviour</h2>
+        <span>abstract test cases</span>
+      </div>
+      <div id="normativeCases" class="case-list empty">No cases generated.</div>
+      <div class="row">
+        <button id="downloadNormative" class="secondary" disabled>Export normative cases CSV</button>
+      </div>
+    </section>
+
+    <section class="panel wide">
+      <div class="panel-title">
+        <h2>4. Mutated behaviour</h2>
+        <span>automatically generated mutation cases</span>
+      </div>
+      <p class="hint"></p>
+      <div id="mutationStatus" class="status">No changed-behaviour selection performed.</div>
+      <div id="mutationCases" class="case-list empty">No changed-behaviour cases generated.</div>
+      <div class="row">
+        <button id="downloadMutations" class="secondary" disabled>Export mutation cases CSV</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-title">
+        <h2>5. Generated scenarios</h2>
+        <span>Gherkin-style</span>
+      </div>
+      <pre id="gherkinOutput" class="code-output">No scenarios generated.</pre>
+      <div class="row">
+        <button id="downloadFeature" class="secondary" disabled>Export .feature</button>
+      </div>
+    </section>
+
+    <section class="panel wide">
+      <div class="panel-title">
+        <h2>6. GUI action mapping</h2>
+        <span>abstract task → concrete GUI action</span>
+      </div>
+      <p class="hint">Map generated abstract tasks to concrete GUI actions, selectors, test data, and expected visible results.</p>
+      <div id="mappingOutput" class="table-wrap empty">No mapping generated.</div>
+      <div class="row">
+        <button id="downloadMapping" class="secondary" disabled>Export mapping CSV</button>
+      </div>
+    </section>
+
+    <section class="panel wide">
+      <div class="panel-title">
+        <h2>7. Traceability view</h2>
+        <span>task → test case → scenario → action</span>
+      </div>
+      <div id="traceabilityOutput" class="table-wrap empty">No traceability data.</div>
+      <div class="row">
+        <button id="downloadTraceability" class="secondary" disabled>Export traceability CSV</button>
+      </div>
+    </section>
+
+    <section class="panel wide">
+      <div class="panel-title">
+        <h2>8. Playwright skeleton</h2>
+        <span>execution preparation</span>
+      </div>
+      <p class="hint">The prototype prepares automation skeleton code but does not execute the tests against the system under test.</p>
+      <pre id="playwrightOutput" class="code-output">No Playwright skeleton generated.</pre>
+      <div class="row">
+        <button id="downloadPlaywright" class="secondary" disabled>Export Playwright skeleton</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Internal controls keep the automatic default reduction/mutation policy out of the user-facing layout. -->
+  <div hidden aria-hidden="true">
+    <button id="importXml" type="button"></button>
+    <button id="headerStart" type="button"></button>
+    <div id="summaryCards"></div>
+    <div id="operatorSummary"></div>
+    <input id="includeUserTasks" type="checkbox" checked />
+    <input id="maxCases" type="number" value="300" />
+    <div id="reductionControls"></div>
+    <button id="generateNormative"></button>
+    <button id="downloadReduction"></button>
+    <div id="reductionStatus"></div>
+    <div id="reducedModelOutput"></div>
+    <input id="mutationOmission" type="checkbox" checked />
+    <input id="mutationOrder" type="checkbox" checked />
+    <input id="mutationOperator" type="checkbox" />
+    <div id="operatorMutationControls"></div>
+    <select id="mutationRelation"></select>
+    <select id="mutationReplacement"></select>
+    <button id="generateMutations"></button>
+  </div>
+
+  <footer>
+  </footer>
+
+  <script>
+const state = {
+  xmlText: "",
+  fileName: "",
+  model: null,
+  parserWarnings: [],
+  unknownOperators: [],
+  reduction: {
+    includeUserTasks: true,
+    maxCases: 300,
+    iterationBounds: {},
+    concurrencyStrategies: {},
+    disablingStrategies: {},
+    unknownMappings: {}
+  },
+  normativeCases: [],
+  mutationCandidates: [],
+  mutationCases: [],
+  mutationSelection: null,
+  mappings: []
+};
+
+const OPERATOR_MAP = {
+  SequentialEnabling: "enabling",
+  SequentialEnablingInfo: "enabling-info",
+  OrderIndependence: "order-independent",
+  OrderIndependency: "order-independent",
+  Interleaving: "concurrency",
+  Choice: "choice",
+  Disabling: "disabling"
+};
+
+const OPERATOR_LABELS = {
+  enabling: "Enabling (>>)",
+  "enabling-info": "Enabling with information passing ([]>>)",
+  "order-independent": "Order independence (|=|)",
+  concurrency: "Interleaving / concurrency (|||)",
+  choice: "Choice ([])",
+  disabling: "Disabling ([>)"
+};
+
+const els = {
+  xmlFile: document.getElementById("xmlFile"),
+  importXml: document.getElementById("importXml"),
+  headerStart: document.getElementById("headerStart"),
+  fileName: document.getElementById("fileName"),
+  importStatus: document.getElementById("importStatus"),
+  summaryCards: document.getElementById("summaryCards"),
+  operatorSummary: document.getElementById("operatorSummary"),
+  treeOutput: document.getElementById("treeOutput"),
+  includeUserTasks: document.getElementById("includeUserTasks"),
+  maxCases: document.getElementById("maxCases"),
+  reductionControls: document.getElementById("reductionControls"),
+  generateNormative: document.getElementById("generateNormative"),
+  downloadReduction: document.getElementById("downloadReduction"),
+  reductionStatus: document.getElementById("reductionStatus"),
+  reducedModelOutput: document.getElementById("reducedModelOutput"),
+  normativeCases: document.getElementById("normativeCases"),
+  downloadNormative: document.getElementById("downloadNormative"),
+  mutationOmission: document.getElementById("mutationOmission"),
+  mutationOrder: document.getElementById("mutationOrder"),
+  mutationOperator: document.getElementById("mutationOperator"),
+  operatorMutationControls: document.getElementById("operatorMutationControls"),
+  mutationRelation: document.getElementById("mutationRelation"),
+  mutationReplacement: document.getElementById("mutationReplacement"),
+  generateMutations: document.getElementById("generateMutations"),
+  downloadMutations: document.getElementById("downloadMutations"),
+  mutationStatus: document.getElementById("mutationStatus"),
+  mutationCases: document.getElementById("mutationCases"),
+  gherkinOutput: document.getElementById("gherkinOutput"),
+  downloadFeature: document.getElementById("downloadFeature"),
+  mappingOutput: document.getElementById("mappingOutput"),
+  downloadMapping: document.getElementById("downloadMapping"),
+  traceabilityOutput: document.getElementById("traceabilityOutput"),
+  downloadTraceability: document.getElementById("downloadTraceability"),
+  playwrightOutput: document.getElementById("playwrightOutput"),
+  downloadPlaywright: document.getElementById("downloadPlaywright")
+};
+
+function directChild(element, tagName) {
+  return Array.from(element.children).find(child => child.tagName === tagName) || null;
+}
+
+function directChildren(element, tagName) {
+  return Array.from(element.children).filter(child => child.tagName === tagName);
+}
+
+function attrBool(el, name) {
+  return String(el.getAttribute(name) || "false").trim().toLowerCase() === "true";
+}
+
+function cleanName(value) {
+  return String(value || "").replace(/\s+/g, " ").trim();
+}
+
+function parseTaskElement(taskEl, parentUid = "root", index = 0) {
+  const identifier = cleanName(taskEl.getAttribute("Identifier")) || `UnnamedTask${index + 1}`;
+  const uid = `${parentUid}.${index + 1}`;
+  const temporalEl = directChild(taskEl, "TemporalOperator");
+  const rawOperator = temporalEl ? cleanName(temporalEl.getAttribute("name")) : "";
+  const relationType = rawOperator ? (OPERATOR_MAP[rawOperator] || "unknown") : "none";
+  const siblingRightEl = directChild(taskEl, "SiblingRight");
+  const siblingLeftEl = directChild(taskEl, "SiblingLeft");
+  const parentEl = directChild(taskEl, "Parent");
+  const preconditionEl = directChild(taskEl, "Precondition");
+  const subTaskEl = directChild(taskEl, "SubTask");
+  const childEls = subTaskEl ? directChildren(subTaskEl, "Task") : [];
+  const children = childEls.map((child, childIndex) => parseTaskElement(child, uid, childIndex));
+
+  return {
+    uid,
+    id: identifier,
+    name: identifier,
+    category: cleanName(taskEl.getAttribute("Category")) || "Unspecified Task",
+    iterative: attrBool(taskEl, "Iterative"),
+    optional: attrBool(taskEl, "Optional"),
+    partOfCooperation: attrBool(taskEl, "PartOfCooperation"),
+    rawOperator,
+    relationType,
+    siblingRight: siblingRightEl ? cleanName(siblingRightEl.getAttribute("name")) : "",
+    siblingLeft: siblingLeftEl ? cleanName(siblingLeftEl.getAttribute("name")) : "",
+    parentName: parentEl ? cleanName(parentEl.getAttribute("name")) : "",
+    precondition: preconditionEl ? cleanName(preconditionEl.textContent) : "",
+    children
+  };
+}
+
+function parseCTTE(xmlText) {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(xmlText, "application/xml");
+  const parserError = doc.querySelector("parsererror");
+  if (parserError) throw new Error(`XML parse error: ${parserError.textContent.trim()}`);
+
+  const taskModel = doc.querySelector("TaskModel");
+  if (!taskModel) throw new Error("No <TaskModel> element was found.");
+  const rootTaskEl = directChildren(taskModel, "Task")[0];
+  if (!rootTaskEl) throw new Error("The CTTE XML does not contain a root <Task>.");
+
+  const root = parseTaskElement(rootTaskEl, "task", 0);
+  const model = {
+    sourceName: cleanName(taskModel.getAttribute("NameTaskModelID")),
+    root
+  };
+  const warnings = validateParsedModel(model);
+  return { model, warnings };
+}
+
+function walkTasks(task, fn) {
+  fn(task);
+  task.children.forEach(child => walkTasks(child, fn));
+}
+
+function allTasks(model = state.model) {
+  const list = [];
+  if (model?.root) walkTasks(model.root, task => list.push(task));
+  return list;
+}
+
+function allRelations(model = state.model) {
+  const relations = [];
+  if (!model?.root) return relations;
+  walkTasks(model.root, parent => {
+    parent.children.forEach((left, index) => {
+      const right = parent.children[index + 1];
+      if (!right) return;
+      relations.push({
+        key: `${parent.uid}|${left.uid}|${right.uid}`,
+        parentUid: parent.uid,
+        parentName: parent.name,
+        leftUid: left.uid,
+        leftName: left.name,
+        rightUid: right.uid,
+        rightName: right.name,
+        rawOperator: left.rawOperator,
+        type: left.relationType
+      });
+    });
+  });
+  return relations;
+}
+
+function validateParsedModel(model) {
+  const warnings = [];
+  const unknown = [];
+  walkTasks(model.root, task => {
+    if (task.rawOperator && task.relationType === "unknown") {
+      unknown.push(task.rawOperator);
+      warnings.push(`Unknown CTTE temporal operator '${task.rawOperator}' on task '${task.name}'.`);
+    }
+    if (task.siblingRight && !task.rawOperator) {
+      warnings.push(`Task '${task.name}' points to right sibling '${task.siblingRight}' but has no TemporalOperator.`);
+    }
+    if (task.rawOperator && !task.siblingRight) {
+      warnings.push(`Task '${task.name}' has operator '${task.rawOperator}' but no right sibling.`);
+    }
+    task.children.forEach((child, index) => {
+      const expectedRight = task.children[index + 1];
+      if (expectedRight && child.siblingRight && cleanName(child.siblingRight) !== cleanName(expectedRight.name)) {
+        warnings.push(`Sibling metadata mismatch under '${task.name}': '${child.name}' points to '${child.siblingRight}', but XML order shows '${expectedRight.name}'. XML order is used.`);
+      }
+    });
+  });
+  state.unknownOperators = [...new Set(unknown)];
+  return warnings;
+}
+
+function categoryCounts(tasks) {
+  const counts = {};
+  tasks.forEach(t => { counts[t.category] = (counts[t.category] || 0) + 1; });
+  return counts;
+}
+
+function operatorCounts(relations) {
+  const counts = {};
+  relations.forEach(r => {
+    const label = r.rawOperator || "Missing operator";
+    counts[label] = (counts[label] || 0) + 1;
+  });
+  return counts;
+}
+
+function renderSummary() {
+  const tasks = allTasks();
+  const relations = allRelations();
+  const leaves = tasks.filter(t => t.children.length === 0);
+  const iterative = tasks.filter(t => t.iterative);
+  const optional = tasks.filter(t => t.optional);
+  const unknown = relations.filter(r => r.type === "unknown");
+
+  els.summaryCards.className = "metrics";
+  els.summaryCards.innerHTML = [
+    metric(tasks.length, "tasks"),
+    metric(leaves.length, "leaf tasks"),
+    metric(relations.length, "sibling relations"),
+    metric(iterative.length, "iterative tasks"),
+    metric(optional.length, "optional tasks"),
+    metric(unknown.length, "unknown relations")
+  ].join("");
+
+  const cats = categoryCounts(tasks);
+  const ops = operatorCounts(relations);
+  els.operatorSummary.className = "small-table";
+  els.operatorSummary.innerHTML = `
+    <table>
+      <thead><tr><th>Detected item</th><th>Count</th></tr></thead>
+      <tbody>
+        ${Object.entries(cats).map(([name, count]) => `<tr><td>Category: ${escapeHtml(name)}</td><td>${count}</td></tr>`).join("")}
+        ${Object.entries(ops).map(([name, count]) => `<tr><td>Operator: ${escapeHtml(name)}</td><td>${count}</td></tr>`).join("")}
+      </tbody>
+    </table>`;
+}
+
+function metric(value, label) {
+  return `<div class="metric"><strong>${escapeHtml(String(value))}</strong><span>${escapeHtml(label)}</span></div>`;
+}
+
+function taskBadges(task) {
+  const badges = [`<span class="chip">${escapeHtml(task.category)}</span>`];
+  if (task.iterative) badges.push(`<span class="chip iter">Iterative</span>`);
+  if (task.optional) badges.push(`<span class="chip opt">Optional</span>`);
+  if (task.rawOperator) badges.push(`<span class="chip op">${escapeHtml(task.rawOperator)} → ${escapeHtml(task.siblingRight || "?")}</span>`);
+  return badges.join("");
+}
+
+function renderTaskTree(task) {
+  const children = task.children.length
+    ? `<ul>${task.children.map(child => `<li>${renderTaskTree(child)}</li>`).join("")}</ul>`
+    : "";
+  return `<div class="task-label"><strong>${escapeHtml(task.name)}</strong>${taskBadges(task)}</div>${children}`;
+}
+
+function renderTree() {
+  els.treeOutput.className = "tree";
+  els.treeOutput.innerHTML = renderTaskTree(state.model.root);
+}
+
+function initializeReductionState() {
+  state.reduction = {
+    includeUserTasks: true,
+    maxCases: 300,
+    iterationBounds: {},
+    concurrencyStrategies: {},
+    disablingStrategies: {},
+    unknownMappings: {}
+  };
+  allTasks().filter(t => t.iterative).forEach(t => { state.reduction.iterationBounds[t.uid] = 2; });
+  allRelations().forEach(r => {
+    if (r.type === "concurrency") state.reduction.concurrencyStrategies[r.key] = "all";
+    if (r.type === "disabling") state.reduction.disablingStrategies[r.key] = "representative";
+  });
+  state.unknownOperators.forEach(op => { state.reduction.unknownMappings[op] = "unresolved"; });
+  els.includeUserTasks.checked = true;
+  els.maxCases.value = "300";
+}
+
+function renderReductionControls() {
+  const tasks = allTasks();
+  const relations = allRelations();
+  const blocks = [];
+
+  const iterative = tasks.filter(t => t.iterative);
+  if (iterative.length) {
+    blocks.push(`<div class="reduction-card"><h3>Iteration bounds</h3><p>CTT iteration is bounded for finite test generation.</p>${iterative.map(t => `
+      <label>${escapeHtml(t.name)}: max repetitions
+        <input type="number" min="1" max="10" value="${state.reduction.iterationBounds[t.uid] || 2}" data-reduction="iteration" data-uid="${escapeAttr(t.uid)}" />
+      </label>`).join("")}</div>`);
+  }
+
+  const concurrency = relations.filter(r => r.type === "concurrency");
+  if (concurrency.length) {
+    blocks.push(`<div class="reduction-card"><h3>Interleaving / concurrency</h3><p>Choose whether to keep all interleavings or select a representative order.</p>${concurrency.map(r => `
+      <div>
+        <strong>${escapeHtml(r.leftName)} ||| ${escapeHtml(r.rightName)}</strong><br />
+        <label>Reduction
+          <select data-reduction="concurrency" data-key="${escapeAttr(r.key)}">
+            <option value="all" ${state.reduction.concurrencyStrategies[r.key] === "all" ? "selected" : ""}>Preserve all interleavings</option>
+            <option value="left" ${state.reduction.concurrencyStrategies[r.key] === "left" ? "selected" : ""}>Left before right</option>
+            <option value="right" ${state.reduction.concurrencyStrategies[r.key] === "right" ? "selected" : ""}>Right before left</option>
+          </select>
+        </label>
+      </div>`).join("")}</div>`);
+  }
+
+  const disabling = relations.filter(r => r.type === "disabling");
+  if (disabling.length) {
+    blocks.push(`<div class="reduction-card"><h3>Disabling</h3><p>Full interruption semantics can create many paths. Select representative interruption behaviour for test generation.</p>${disabling.map(r => `
+      <div>
+        <strong>${escapeHtml(r.leftName)} [> ${escapeHtml(r.rightName)}</strong><br />
+        <label>Reduction
+          <select data-reduction="disabling" data-key="${escapeAttr(r.key)}">
+            <option value="representative" ${state.reduction.disablingStrategies[r.key] === "representative" ? "selected" : ""}>Representative points: early, middle, completion</option>
+            <option value="completion" ${state.reduction.disablingStrategies[r.key] === "completion" ? "selected" : ""}>Completion then disabling task</option>
+            <option value="early" ${state.reduction.disablingStrategies[r.key] === "early" ? "selected" : ""}>Early interruption after first generated leaf</option>
+          </select>
+        </label>
+      </div>`).join("")}</div>`);
+  }
+
+  const infoRelations = relations.filter(r => r.type === "enabling-info");
+  if (infoRelations.length) {
+    blocks.push(`<div class="reduction-card"><h3>Enabling with information passing</h3><p>Ordering is preserved and the information-passing relation is recorded in case notes. Concrete data propagation is not generated automatically.</p>${infoRelations.map(r => `<div><strong>${escapeHtml(r.leftName)} []>> ${escapeHtml(r.rightName)}</strong></div>`).join("")}</div>`);
+  }
+
+  const choices = relations.filter(r => r.type === "choice");
+  if (choices.length) {
+    blocks.push(`<div class="reduction-card"><h3>Choice</h3><p>All choice alternatives are retained by default so the reduced model contains each represented alternative.</p>${choices.map(r => `<div><strong>${escapeHtml(r.leftName)} [] ${escapeHtml(r.rightName)}</strong></div>`).join("")}</div>`);
+  }
+
+  const optional = tasks.filter(t => t.optional);
+  if (optional.length) {
+    blocks.push(`<div class="reduction-card"><h3>Optional tasks</h3><p>Both behaviours are generated: with the optional task and without it.</p>${optional.map(t => `<div><strong>[${escapeHtml(t.name)}]</strong></div>`).join("")}</div>`);
+  }
+
+  if (state.unknownOperators.length) {
+    blocks.push(`<div class="reduction-card"><h3>Unknown operators</h3><p>Map each unknown CTTE operator before test generation. This mapping is explicit and does not modify the source XML.</p>${state.unknownOperators.map(op => `
+      <label>${escapeHtml(op)}
+        <select data-reduction="unknown" data-op="${escapeAttr(op)}">
+          <option value="unresolved">Unresolved</option>
+          ${Object.keys(OPERATOR_LABELS).map(type => `<option value="${type}" ${state.reduction.unknownMappings[op] === type ? "selected" : ""}>${escapeHtml(OPERATOR_LABELS[type])}</option>`).join("")}
+        </select>
+      </label>`).join("")}</div>`);
+  }
+
+  if (!blocks.length) blocks.push(`<div class="reduction-card"><h3>No special reduction decisions detected</h3><p>The model contains only directly supported finite relations.</p></div>`);
+  els.reductionControls.className = "reduction-controls";
+  els.reductionControls.innerHTML = blocks.join("");
+
+  els.reductionControls.querySelectorAll("[data-reduction]").forEach(control => {
+    control.addEventListener("change", event => {
+      const type = event.target.dataset.reduction;
+      if (type === "iteration") state.reduction.iterationBounds[event.target.dataset.uid] = Math.max(1, Number(event.target.value || 1));
+      if (type === "concurrency") state.reduction.concurrencyStrategies[event.target.dataset.key] = event.target.value;
+      if (type === "disabling") state.reduction.disablingStrategies[event.target.dataset.key] = event.target.value;
+      if (type === "unknown") state.reduction.unknownMappings[event.target.dataset.op] = event.target.value;
+      refreshGenerateAvailability();
+    });
+  });
+  refreshGenerateAvailability();
+}
+
+function unresolvedUnknownOperators() {
+  return state.unknownOperators.filter(op => !state.reduction.unknownMappings[op] || state.reduction.unknownMappings[op] === "unresolved");
+}
+
+function refreshGenerateAvailability() {
+  const unresolved = unresolvedUnknownOperators();
+  els.generateNormative.disabled = !state.model || unresolved.length > 0;
+  if (unresolved.length) {
+    els.reductionStatus.className = "status warn";
+    els.reductionStatus.textContent = `Resolve unknown operator mappings before generation: ${unresolved.join(", ")}`;
+  } else if (state.model) {
+    els.reductionStatus.className = "status";
+    els.reductionStatus.textContent = "Reduction configuration is ready.";
+  }
+}
+
+function effectiveRelationType(relation) {
+  if (relation.type !== "unknown") return relation.type;
+  return state.reduction.unknownMappings[relation.rawOperator] || "unknown";
+}
+
+function stepFromTask(task) {
+  return { uid: task.uid, id: task.id, name: task.name, category: task.category };
+}
+
+function makePath(steps = [], notes = []) {
+  return { steps, notes };
+}
+
+function concatPaths(left, right, note = null) {
+  return makePath(left.steps.concat(right.steps), left.notes.concat(right.notes, note ? [note] : []));
+}
+
+function signature(pathOrSteps) {
+  const steps = Array.isArray(pathOrSteps) ? pathOrSteps : pathOrSteps.steps;
+  return steps.map(s => s.uid).join("→");
+}
+
+function dedupePaths(paths, maxCases = state.reduction.maxCases) {
+  const seen = new Set();
+  const result = [];
+  for (const path of paths) {
+    const sig = signature(path);
+    if (seen.has(sig)) continue;
+    seen.add(sig);
+    result.push(path);
+    if (result.length >= maxCases) break;
+  }
+  return result;
+}
+
+function cartesianConcat(leftPaths, rightPaths, noteFactory = null) {
+  const out = [];
+  for (const left of leftPaths) {
+    for (const right of rightPaths) {
+      const note = noteFactory ? noteFactory(left, right) : null;
+      out.push(concatPaths(left, right, note));
+      if (out.length >= state.reduction.maxCases) return out;
+    }
+  }
+  return out;
+}
+
+function interleaveSteps(a, b, limit) {
+  const results = [];
+  function rec(i, j, prefix) {
+    if (results.length >= limit) return;
+    if (i === a.length && j === b.length) {
+      results.push(prefix.slice());
+      return;
+    }
+    if (i < a.length) {
+      prefix.push(a[i]); rec(i + 1, j, prefix); prefix.pop();
+    }
+    if (j < b.length) {
+      prefix.push(b[j]); rec(i, j + 1, prefix); prefix.pop();
+    }
+  }
+  rec(0, 0, []);
+  return results;
+}
+
+function combineConcurrency(leftPaths, rightPaths, relation) {
+  const strategy = state.reduction.concurrencyStrategies[relation.key] || "all";
+  if (strategy === "left") return cartesianConcat(leftPaths, rightPaths, () => `Concurrency reduced to representative order: ${relation.leftName} before ${relation.rightName}.`);
+  if (strategy === "right") return cartesianConcat(rightPaths, leftPaths, () => `Concurrency reduced to representative order: ${relation.rightName} before ${relation.leftName}.`);
+
+  const out = [];
+  for (const left of leftPaths) {
+    for (const right of rightPaths) {
+      const remaining = Math.max(1, state.reduction.maxCases - out.length);
+      const interleavings = interleaveSteps(left.steps, right.steps, remaining);
+      interleavings.forEach(steps => out.push(makePath(steps, left.notes.concat(right.notes))));
+      if (out.length >= state.reduction.maxCases) return out;
+    }
+  }
+  return out;
+}
+
+function prefixAt(path, mode) {
+  if (!path.steps.length) return [];
+  if (mode === "early") return path.steps.slice(0, 1);
+  if (mode === "middle") return path.steps.slice(0, Math.max(1, Math.ceil(path.steps.length / 2)));
+  return path.steps.slice();
+}
+
+function combineDisabling(leftPaths, rightPaths, relation) {
+  const strategy = state.reduction.disablingStrategies[relation.key] || "representative";
+  const modes = strategy === "representative" ? ["early", "middle", "completion"] : [strategy === "completion" ? "completion" : "early"];
+  const out = [];
+  for (const left of leftPaths) {
+    for (const right of rightPaths) {
+      for (const mode of modes) {
+        const leftPrefix = prefixAt(left, mode);
+        out.push(makePath(
+          leftPrefix.concat(right.steps),
+          left.notes.concat(right.notes, [`Disabling reduced using ${mode} representative interruption for ${relation.leftName} [> ${relation.rightName}.`])
+        ));
+        if (out.length >= state.reduction.maxCases) return dedupePaths(out);
+      }
+    }
+  }
+  return dedupePaths(out);
+}
+
+function relationForPair(parent, index) {
+  const left = parent.children[index];
+  const right = parent.children[index + 1];
+  return {
+    key: `${parent.uid}|${left.uid}|${right.uid}`,
+    parentUid: parent.uid,
+    parentName: parent.name,
+    leftUid: left.uid,
+    leftName: left.name,
+    rightUid: right.uid,
+    rightName: right.name,
+    rawOperator: left.rawOperator,
+    type: left.relationType
+  };
+}
+
+function combineByRelation(leftPaths, rightPaths, relation) {
+  const type = effectiveRelationType(relation);
+  if (type === "enabling") return cartesianConcat(leftPaths, rightPaths);
+  if (type === "enabling-info") return cartesianConcat(leftPaths, rightPaths, () => `Information-passing enabling preserved between ${relation.leftName} and ${relation.rightName}; concrete data propagation is not generated.`);
+  if (type === "choice") return dedupePaths(leftPaths.concat(rightPaths));
+  if (type === "order-independent") return dedupePaths(cartesianConcat(leftPaths, rightPaths).concat(cartesianConcat(rightPaths, leftPaths)));
+  if (type === "concurrency") return dedupePaths(combineConcurrency(leftPaths, rightPaths, relation));
+  if (type === "disabling") return dedupePaths(combineDisabling(leftPaths, rightPaths, relation));
+  return cartesianConcat(leftPaths, rightPaths, () => `Missing or unresolved relation between ${relation.leftName} and ${relation.rightName}; enabling fallback used.`);
+}
+
+function repeatPaths(basePaths, count) {
+  let acc = [makePath([], [])];
+  for (let i = 0; i < count; i++) {
+    acc = cartesianConcat(acc, basePaths);
+    if (acc.length >= state.reduction.maxCases) break;
+  }
+  return acc;
+}
+
+function applyUnaryTaskProperties(task, basePaths) {
+  let paths = basePaths;
+  if (task.iterative) {
+    const max = Math.max(1, Number(state.reduction.iterationBounds[task.uid] || 2));
+    const repeated = [];
+    for (let count = 1; count <= max; count++) {
+      repeatPaths(basePaths, count).forEach(path => repeated.push(makePath(path.steps, path.notes.concat([`Iteration of ${task.name} bounded to ${count} repetition${count === 1 ? "" : "s"} in this case.`]))));
+      if (repeated.length >= state.reduction.maxCases) break;
+    }
+    paths = dedupePaths(repeated);
+  }
+  if (task.optional) {
+    paths = dedupePaths([makePath([], [`Optional task ${task.name} omitted.`])].concat(paths));
+  }
+  return paths;
+}
+
+function operatorPrecedence(type) {
+  // CTT-style precedence used by the prototype: choice > interleaving/concurrency > disabling > enabling.
+  // Enabling with information passing has the same precedence as enabling.
+  if (type === "choice") return 4;
+  if (type === "concurrency" || type === "order-independent") return 3;
+  if (type === "disabling") return 2;
+  if (type === "enabling" || type === "enabling-info") return 1;
+  return 1;
+}
+
+function evaluateSiblingExpression(parent) {
+  if (!parent.children.length) return [makePath([], [])];
+  if (parent.children.length === 1) return generateNodePaths(parent.children[0]);
+
+  const operands = parent.children.map(child => generateNodePaths(child));
+  const operators = parent.children.slice(0, -1).map((_, index) => relationForPair(parent, index));
+
+  // Shunting-yard conversion keeps the CTTE XML order while respecting CTT temporal-operator precedence.
+  const output = [];
+  const opStack = [];
+  operands.forEach((paths, index) => {
+    output.push({ kind: "operand", paths });
+    if (index < operators.length) {
+      const op = operators[index];
+      const opType = effectiveRelationType(op);
+      while (opStack.length) {
+        const top = opStack[opStack.length - 1];
+        const topType = effectiveRelationType(top);
+        if (operatorPrecedence(topType) < operatorPrecedence(opType)) break;
+        output.push({ kind: "operator", relation: opStack.pop() });
+      }
+      opStack.push(op);
+    }
+  });
+  while (opStack.length) output.push({ kind: "operator", relation: opStack.pop() });
+
+  const valueStack = [];
+for (const token of output) {
+    if (token.kind === "operand") {
+      valueStack.push(token.paths);
+      continue;
+    }
+    const right = valueStack.pop() || [makePath([], [])];
+    const left = valueStack.pop() || [makePath([], [])];
+    valueStack.push(dedupePaths(combineByRelation(left, right, token.relation)));
+  }
+  return valueStack.pop() || [makePath([], [])];
+}
+
+function generateNodePaths(task) {
+  let base;
+  if (!task.children.length) {
+    if (!state.reduction.includeUserTasks && task.category === "User Task") base = [makePath([], [`User task ${task.name} excluded by reduction setting.`])];
+    else base = [makePath([stepFromTask(task)], [])];
+  } else {
+    base = evaluateSiblingExpression(task);
+  }
+  return applyUnaryTaskProperties(task, base);
+}
+
+
+function reducedRelationLabel(parent, index) {
+  const relation = relationForPair(parent, index);
+  const type = effectiveRelationType(relation);
+  if (type === "enabling") return ">>";
+  if (type === "enabling-info") return "[]>> (information dependency preserved)";
+  if (type === "choice") return "[]";
+  if (type === "order-independent") return "|=| (both complete orders retained)";
+  if (type === "concurrency") {
+    const strategy = state.reduction.concurrencyStrategies[relation.key] || "all";
+    if (strategy === "all") return "||| (preserved)";
+    if (strategy === "left") return `>> (reduced from |||: ${relation.leftName} before ${relation.rightName})`;
+    return `>> (reduced from |||: ${relation.rightName} before ${relation.leftName})`;
+  }
+  if (type === "disabling") {
+    const strategy = state.reduction.disablingStrategies[relation.key] || "representative";
+    return `[> (representative reduction: ${strategy})`;
+  }
+  return `${relation.rawOperator || "?"} → ${type}`;
+}
+
+function renderReducedTask(task) {
+  if (!state.reduction.includeUserTasks && task.category === "User Task" && !task.children.length) {
+    return `<div class="task-label"><strong>${escapeHtml(task.name)}</strong><span class="chip">excluded user task</span></div>`;
+  }
+  const badges = [`<span class="chip">${escapeHtml(task.category)}</span>`];
+  if (task.iterative) badges.push(`<span class="chip iter">iteration bound ≤ ${escapeHtml(String(state.reduction.iterationBounds[task.uid] || 2))}</span>`);
+  if (task.optional) badges.push(`<span class="chip opt">optional: with / without</span>`);
+  let children = "";
+  if (task.children.length) {
+    const parts = [];
+    task.children.forEach((child, index) => {
+      parts.push(`<li>${renderReducedTask(child)}${index < task.children.length - 1 ? `<div class="chip op">relation to next: ${escapeHtml(reducedRelationLabel(task, index))}</div>` : ""}</li>`);
+    });
+    children = `<ul>${parts.join("")}</ul>`;
+  }
+  return `<div class="task-label"><strong>${escapeHtml(task.name)}</strong>${badges.join("")}</div>${children}`;
+}
+
+function renderReducedModel() {
+  if (!state.model) {
+    els.reducedModelOutput.className = "tree empty";
+    els.reducedModelOutput.textContent = "No reduction has been applied.";
+    return;
+  }
+  els.reducedModelOutput.className = "tree";
+  els.reducedModelOutput.innerHTML = renderReducedTask(state.model.root);
+}
+
+function generateNormativeCases() {
+  state.reduction.includeUserTasks = els.includeUserTasks.checked;
+  state.reduction.maxCases = Math.max(10, Number(els.maxCases.value || 300));
+  if (unresolvedUnknownOperators().length) {
+    els.reductionStatus.className = "status error";
+    els.reductionStatus.textContent = "Cannot generate cases while unknown operators are unresolved.";
+    return;
+  }
+
+  const paths = dedupePaths(generateNodePaths(state.model.root));
+  state.normativeCases = paths.map((path, index) => ({
+    id: `N${index + 1}`,
+    type: "normative",
+    title: `Normative behaviour ${index + 1}`,
+    steps: path.steps,
+    notes: [...new Set(path.notes)]
+  }));
+  state.mutationCases = [];
+  renderReducedModel();
+  renderNormativeCases();
+  renderMutationCases();
+  refreshMutationControls();
+  rebuildDownstreamArtifacts();
+
+  const hitLimit = paths.length >= state.reduction.maxCases;
+  els.reductionStatus.className = hitLimit ? "status warn" : "status ok";
+  els.reductionStatus.textContent = hitLimit
+    ? `Generated ${paths.length} bounded cases. The configured case limit was reached, so the set may be truncated.`
+    : `Generated ${paths.length} abstract test case${paths.length === 1 ? "" : "s"} from the reduced model.`;
+  setEnabled(els.downloadReduction, true);
+  setEnabled(els.downloadNormative, paths.length > 0);
+  setEnabled(els.generateMutations, paths.length > 0);
+}
+
+function eligibleReducedLeaves() {
+  return allTasks().filter(t => t.children.length === 0 && (state.reduction.includeUserTasks || t.category !== "User Task"));
+}
+
+function renderNormativeCases() {
+  if (!state.normativeCases.length) {
+    els.normativeCases.className = "case-list empty";
+    els.normativeCases.textContent = "No cases generated.";
+    return;
+  }
+  els.normativeCases.className = "case-list";
+  els.normativeCases.innerHTML = state.normativeCases.map(renderCaseCard).join("");
+}
+
+function trailingApplicationSplit(steps) {
+  let cut = steps.length;
+  while (cut > 0 && isSystemResponseStep(steps[cut - 1])) cut--;
+  return {
+    interactionSteps: steps.slice(0, cut),
+    responseSteps: steps.slice(cut)
+  };
+}
+
+function caseExecutionSteps(c) {
+  if (c.type === "mutation" && Array.isArray(c.executionSteps)) return c.executionSteps;
+  return c.steps || [];
+}
+
+function simpleCaseTitle(c) {
+  const target = c.selectionTarget || "";
+  if (c.paperRule === "Optional/mandatory task") return `${target} not performed`;
+  if (c.paperRule === "Sequence of tasks") return `Actions performed in a different order: ${target}`;
+  if (c.paperRule === "Non-mandatory order") return `Check one allowed action order: ${target}`;
+  if (c.paperRule === "Task choice") return `Use one alternative: ${target}`;
+  if (c.paperRule === "Disabling") return `Try the action again: ${target}`;
+  if (c.paperRule === "Iterative task") return `Check repeated interaction: ${target}`;
+  return c.title || "Changed user behaviour";
+}
+
+function simpleCaseExplanation(c) {
+  const target = c.selectionTarget || "this step";
+  if (c.paperRule === "Optional/mandatory task") {
+    return `The original task model expects '${target}' in this path. Task2Test deliberately creates a case where the user does not perform that step, so the tester can see how the interface handles it.`;
+  }
+  if (c.paperRule === "Sequence of tasks") {
+    return `Task2Test changes the order of the two user actions to see whether the interface really requires the original order.`;
+  }
+  if (c.paperRule === "Non-mandatory order") {
+    return `The task model allows more than one order. Task2Test keeps an explicit order so the resulting behaviour can be compared clearly.`;
+  }
+  if (c.paperRule === "Task choice") {
+    return `Task2Test keeps one alternative from the modelled choice so that this path can be reviewed separately.`;
+  }
+  if (c.paperRule === "Disabling") {
+    return `Task2Test tries the earlier action again after the later action, to see whether the interface correctly prevents it when it should no longer be available.`;
+  }
+  if (c.paperRule === "Iterative task") {
+    return `Task2Test changes one repeated interaction to see whether information from an earlier repetition is handled correctly.`;
+  }
+  return `This case changes the normal user behaviour so the interface response can be tested.`;
+}
+
+function simpleSelectionExplanation(c) {
+  const count = c.representedCandidateCount || 1;
+  const sourceCount = c.representedSourceCases?.length || 0;
+  if (count > 1) {
+    return `The same changed situation appeared ${count} times in the generated paths, so Task2Test keeps one example instead of repeating it.${sourceCount ? ` It represents ${sourceCount} source path${sourceCount === 1 ? "" : "s"}.` : ""}`;
+  }
+  return `This changed situation is different from the other selected cases, so Task2Test keeps it as one test example.`;
+}
+
+function renderCaseCard(c) {
+  const cls = c.type === "normative" ? "normative" : (c.classification === "still normative" ? "still-normative" : "deviating");
+  const mutationMeta = c.mutation ? `<div class="case-meta"><strong>Changed user behaviour:</strong> ${escapeHtml(simpleCaseTitle(c))}${c.sourceCase ? ` · <strong>Based on normative case:</strong> ${escapeHtml(c.sourceCase)}` : ""}</div>` : "";
+  const notes = "";
+
+  if (c.type === "normative") {
+    const stepList = c.steps.length ? `<ol>${c.steps.map(step => `<li><strong>${escapeHtml(step.name)}</strong> <span class="chip">${escapeHtml(step.category)}</span></li>`).join("")}</ol>` : `<p class="muted">Empty sequence.</p>`;
+    return `<article class="case-card ${cls}">
+      <h3>${escapeHtml(c.id)} — ${escapeHtml(c.title)}</h3>
+      ${stepList}
+    </article>`;
+  }
+
+  const executionSteps = caseExecutionSteps(c);
+  const interactionList = executionSteps.length ? `<ol>${executionSteps.map(step => `<li><strong>${escapeHtml(step.name)}</strong> <span class="chip">${escapeHtml(step.category)}</span></li>`).join("")}</ol>` : `<p class="muted">No user interaction steps remain in this changed case.</p>`;
+
+  return `<article class="case-card ${cls}">
+    <h3>${escapeHtml(c.id)} — ${escapeHtml(simpleCaseTitle(c))}</h3>
+    ${mutationMeta}
+    <div class="case-section">
+      <div class="case-section-title">Changed user sequence</div>
+      ${interactionList}
+    </div>
+  </article>`;
+}
+
+function normativeSignatureSet() {
+  return new Set(state.normativeCases.map(c => signature(c.steps)));
+}
+
+function mutationCandidate(id, title, steps, mutation, sourceCase, normativeSet, notes = [], meta = {}) {
+  const sig = signature(steps);
+  const split = trailingApplicationSplit(steps);
+  const sourceResponses = Array.isArray(meta.sourceResponses) ? meta.sourceResponses : split.responseSteps;
+  const responsePolicy = meta.responsePolicy || (sourceResponses.length ? "source-context" : "none");
+  const executionSteps = Array.isArray(meta.executionSteps) ? meta.executionSteps : split.interactionSteps;
+  return {
+    id,
+    type: "mutation",
+    title,
+    steps,
+    executionSteps,
+    sourceResponses,
+    responsePolicy,
+    mutation,
+    sourceCase,
+    classification: normativeSet.has(sig) ? "still normative" : "deviating within configured bounds",
+    notes,
+    paperRule: meta.paperRule || "",
+    selectionKey: meta.selectionKey || `${meta.paperRule || "Other"}|${mutation}`,
+    selectionTarget: meta.selectionTarget || mutation
+  };
+}
+
+function isUserControlledStep(step) {
+  return ["Interaction Task", "User Task"].includes(step.category);
+}
+
+function isInteractionTask(task) {
+  return task && task.category === "Interaction Task";
+}
+
+function isSystemResponseStep(step) {
+  return step.category === "Application Task";
+}
+
+function taskMapByUid() {
+  return new Map(allTasks().map(task => [task.uid, task]));
+}
+
+function leafTasksOf(task) {
+  const leaves = [];
+  walkTasks(task, current => { if (!current.children.length) leaves.push(current); });
+  return leaves;
+}
+
+function leafUidSet(task) {
+  return new Set(leafTasksOf(task).map(t => t.uid));
+}
+
+function taskIndexInCase(c, uid) {
+  return c.steps.findIndex(step => step.uid === uid);
+}
+
+function paperSequenceMutations(normativeSet) {
+  // Paper: two Interaction Tasks linked in sequence (>> or []>>) are reversed
+  // to test whether the GUI really enforces the modelled order. The final
+  // Application Task is not reordered.
+  const out = [];
+  let counter = 1;
+  const tasks = taskMapByUid();
+  const relations = allRelations().filter(r => ["enabling", "enabling-info"].includes(effectiveRelationType(r)));
+
+  for (const relation of relations) {
+    const leftTask = tasks.get(relation.leftUid);
+    const rightTask = tasks.get(relation.rightUid);
+    if (!leftTask || !rightTask || leftTask.children.length || rightTask.children.length) continue;
+    if (!isInteractionTask(leftTask) || !isInteractionTask(rightTask)) continue;
+
+    for (const c of state.normativeCases) {
+      const i = taskIndexInCase(c, leftTask.uid);
+      const j = taskIndexInCase(c, rightTask.uid);
+      if (i < 0 || j !== i + 1) continue;
+      // Task2Test feasibility adaptation: do not move the initial context step.
+      if (i === 0) continue;
+
+      const steps = c.steps.slice();
+      steps[i] = c.steps[j];
+      steps[j] = c.steps[i];
+      const notes = [`Paper sequence rule: reverse '${leftTask.name}' and '${rightTask.name}' to test whether their order is actually enforced.`];
+      if (effectiveRelationType(relation) === "enabling-info") {
+        notes.push(`The paper removes a dependent precondition when reversing []>>. Task2Test does not execute CTT preconditions, so the dependency is treated as relaxed for this mutant${rightTask.precondition && rightTask.precondition.toLowerCase() !== "null" ? ` (original precondition: ${rightTask.precondition})` : ""}.`);
+      }
+      out.push(mutationCandidate(
+        `PS${counter++}`,
+        `Reverse ${leftTask.name} and ${rightTask.name}`,
+        steps,
+        `Sequence reversal: ${leftTask.name} ↔ ${rightTask.name}`,
+        c.id,
+        normativeSet,
+        notes,
+        { paperRule: "Sequence of tasks", selectionKey: `sequence|${relation.key}`, selectionTarget: `${leftTask.name} ↔ ${rightTask.name}` }
+      ));
+    }
+  }
+  return out;
+}
+
+function paperNonMandatoryOrderMutations(normativeSet) {
+  // Paper: for T1 |=| T2, generate explicit sequential mutants for every
+  // allowed complete order, excluding Application Tasks. Interleaving (|||)
+  // is intentionally not treated as |=|.
+  const out = [];
+  let counter = 1;
+  const tasks = taskMapByUid();
+  for (const relation of allRelations().filter(r => effectiveRelationType(r) === "order-independent")) {
+    const leftTask = tasks.get(relation.leftUid);
+    const rightTask = tasks.get(relation.rightUid);
+    if (!leftTask || !rightTask || leftTask.children.length || rightTask.children.length) continue;
+    if (!isInteractionTask(leftTask) || !isInteractionTask(rightTask)) continue;
+    const seen = new Set();
+    for (const c of state.normativeCases) {
+      const i = taskIndexInCase(c, leftTask.uid);
+      const j = taskIndexInCase(c, rightTask.uid);
+      if (i < 0 || j < 0) continue;
+      const order = i < j ? `${leftTask.name} >> ${rightTask.name}` : `${rightTask.name} >> ${leftTask.name}`;
+      if (seen.has(order)) continue;
+      seen.add(order);
+      out.push(mutationCandidate(
+        `PN${counter++}`,
+        `Order-independence check: ${order}`,
+        c.steps.slice(),
+        `Explicit order from |=|: ${order}`,
+        c.id,
+        normativeSet,
+        [`Paper non-mandatory-order rule: replace |=| with an explicit sequential order and compare the obtained result with the other permitted order.`],
+        { paperRule: "Non-mandatory order", selectionKey: `order-independent|${relation.key}|${order}`, selectionTarget: order }
+      ));
+    }
+  }
+  return out;
+}
+
+function paperOmissionMutations(normativeSet) {
+  // Paper: optional tasks are omitted to test optionality and mandatory tasks
+  // are omitted to test whether they are truly mandatory. We apply this to
+  // user-controlled leaf tasks because Application Tasks are system outputs.
+  const out = [];
+  let counter = 1;
+  const tasks = taskMapByUid();
+
+  for (const c of state.normativeCases) {
+    const sourceSplit = trailingApplicationSplit(c.steps);
+    let lastUserControlledIndex = -1;
+    c.steps.forEach((s, i) => { if (isUserControlledStep(s)) lastUserControlledIndex = i; });
+
+    c.steps.forEach((step, index) => {
+      const task = tasks.get(step.uid);
+      if (!task || task.children.length || !isUserControlledStep(step)) return;
+      // Task2Test feasibility adaptation: preserve the initial step.
+      if (index === 0) return;
+
+      const steps = c.steps.slice(0, index).concat(c.steps.slice(index + 1));
+      const notes = [task.optional
+        ? `Paper optional-task rule: omit '${task.name}' to test whether it is effectively optional.`
+        : `Paper mandatory-task rule: omit '${task.name}' to test whether it is effectively mandatory. A failing test may show that the GUI correctly prevents the erroneous user behaviour.`];
+      if (task.relationType === "enabling-info") {
+        notes.push(`The paper removes a dependent precondition on the following task when the omitted task passes information via []>>. Task2Test records this rule but does not execute preconditions.`);
+      }
+
+      // Task2Test execution-feasibility adaptation: if the omitted user-controlled
+      // task is followed by an Application Task before any further user-controlled
+      // task, that Application Task is treated as a dependent source-model response.
+      // The executable mutant stops before the response instead of assuming that the
+      // response and later user actions remain reachable. This generalises the login
+      // Submit→Dashboard case to mid-path system responses such as ATM actions.
+      const nextUserIndex = c.steps.findIndex((candidate, candidateIndex) => candidateIndex > index && isUserControlledStep(candidate));
+      const nextApplicationIndex = c.steps.findIndex((candidate, candidateIndex) => candidateIndex > index && isSystemResponseStep(candidate));
+      const hasImmediateDependentResponse = nextApplicationIndex >= 0 && (nextUserIndex < 0 || nextApplicationIndex < nextUserIndex);
+      const finalTriggerRemoved = index === lastUserControlledIndex && sourceSplit.responseSteps.length > 0;
+      const triggerRemoved = hasImmediateDependentResponse || finalTriggerRemoved;
+
+      let dependentResponses = [];
+      let executionSteps;
+      if (hasImmediateDependentResponse) {
+        for (let k = nextApplicationIndex; k < c.steps.length && isSystemResponseStep(c.steps[k]); k++) {
+          dependentResponses.push(c.steps[k]);
+        }
+        // Because one earlier task was omitted, nextApplicationIndex shifts left by one
+        // in the mutated array. Keep only the reachable prefix before that response.
+        executionSteps = steps.slice(0, Math.max(0, nextApplicationIndex - 1));
+      } else {
+        const splitAfterMutation = trailingApplicationSplit(steps);
+        dependentResponses = finalTriggerRemoved ? sourceSplit.responseSteps : sourceSplit.responseSteps;
+        executionSteps = splitAfterMutation.interactionSteps;
+      }
+
+      const meta = {
+        paperRule: "Optional/mandatory task",
+        selectionKey: `omission|${task.uid}`,
+        selectionTarget: task.name,
+        sourceResponses: dependentResponses,
+        responsePolicy: triggerRemoved ? "trigger-removed" : (dependentResponses.length ? "source-context" : "none"),
+        executionSteps
+      };
+      if (triggerRemoved) {
+        const responseNames = dependentResponses.map(r => r.name).join(", ");
+        notes.push(`Task2Test dependency rule: omitting '${task.name}' removes the user-controlled trigger for the following Application Task${dependentResponses.length === 1 ? "" : "s"}${responseNames ? ` (${responseNames})` : ""}. The executable mutant therefore stops before that response and does not assume that later tasks remain reachable.`);
+      }
+
+      out.push(mutationCandidate(
+        `PO${counter++}`,
+        `Omit ${task.name}`,
+        steps,
+        `${task.optional ? "Optional" : "Mandatory"} task omission: ${task.name}`,
+        c.id,
+        normativeSet,
+        notes,
+        meta
+      ));
+    });
+  }
+  return out;
+}
+
+function collectChoiceGroups() {
+  const groups = [];
+  if (!state.model?.root) return groups;
+  walkTasks(state.model.root, parent => {
+    let i = 0;
+    while (i < parent.children.length - 1) {
+      if (effectiveRelationType(relationForPair(parent, i)) !== "choice") { i++; continue; }
+      const start = i;
+      let end = i + 1;
+      while (end < parent.children.length - 1 && effectiveRelationType(relationForPair(parent, end)) === "choice") end++;
+      groups.push({ parent, alternatives: parent.children.slice(start, end + 1) });
+      i = end + 1;
+    }
+  });
+  return groups;
+}
+
+function paperChoiceMutations(normativeSet) {
+  // Paper: for T1[]T2[]T3 generate one mutant retaining each alternative.
+  // Normative-case generation already expands choices, so Task2Test reuses one
+  // complete normative path for each isolated alternative rather than rebuilding
+  // the entire task model and suppresses exact duplicates per alternative/path.
+  const out = [];
+  let counter = 1;
+
+  for (const group of collectChoiceGroups()) {
+    const altInfos = group.alternatives.map(task => ({ task, uids: leafUidSet(task) }));
+    // A user-error choice rule is meaningful only when at least one alternative
+    // contains a user-controlled leaf. This avoids mutating pure application-output
+    // choices such as dashboard versus error message.
+    if (!altInfos.some(info => leafTasksOf(info.task).some(t => ["Interaction Task", "User Task"].includes(t.category)))) continue;
+
+    for (const selected of altInfos) {
+      const otherUids = new Set();
+      altInfos.filter(info => info !== selected).forEach(info => info.uids.forEach(uid => otherUids.add(uid)));
+      const seen = new Set();
+      for (const c of state.normativeCases) {
+        const hasSelected = c.steps.some(step => selected.uids.has(step.uid));
+        const hasOther = c.steps.some(step => otherUids.has(step.uid));
+        if (!hasSelected || hasOther) continue;
+        const sig = signature(c.steps);
+        if (seen.has(sig)) continue;
+        seen.add(sig);
+        out.push(mutationCandidate(
+          `PC${counter++}`,
+          `Choice: keep ${selected.task.name}`,
+          c.steps.slice(),
+          `Choice isolation: keep ${selected.task.name}`,
+          c.id,
+          normativeSet,
+          [`Paper choice rule: retain '${selected.task.name}' and omit the other alternatives under '${group.parent.name}'. Because normative generation already expands CTT choice, this case may be classified as still normative.`],
+          { paperRule: "Task choice", selectionKey: `choice|${group.parent.uid}|${selected.task.uid}`, selectionTarget: `${group.parent.name}: ${selected.task.name}` }
+        ));
+      }
+    }
+  }
+  return out;
+}
+
+function makeRepeatAttemptStep(step, relation) {
+  return {
+    ...step,
+    uid: `${step.uid}#after-disable#${relation.key}`,
+    id: `${step.id || step.name}_repeat`,
+    name: `${step.name} (attempt again after ${relation.rightName})`
+  };
+}
+
+function paperDisablingMutations(normativeSet) {
+  // Paper: T1 [> T2 -> T1 >> T2 >> T1' to check that T2 really disables T1.
+  const out = [];
+  let counter = 1;
+  const tasks = taskMapByUid();
+  for (const relation of allRelations().filter(r => effectiveRelationType(r) === "disabling")) {
+    const leftTask = tasks.get(relation.leftUid);
+    const rightTask = tasks.get(relation.rightUid);
+    if (!leftTask || !rightTask) continue;
+    const leftUids = leafUidSet(leftTask);
+    const rightUids = leafUidSet(rightTask);
+
+    for (const c of state.normativeCases) {
+      const rightIndices = c.steps.map((s, i) => rightUids.has(s.uid) ? i : -1).filter(i => i >= 0);
+      if (!rightIndices.length) continue;
+      const firstRight = Math.min(...rightIndices);
+      const lastRight = Math.max(...rightIndices);
+      const leftSegment = c.steps.slice(0, firstRight).filter(step => leftUids.has(step.uid));
+      if (!leftSegment.length) continue;
+      const repeated = leftSegment.map(step => makeRepeatAttemptStep(step, relation));
+      const steps = c.steps.slice(0, lastRight + 1).concat(repeated, c.steps.slice(lastRight + 1));
+      out.push(mutationCandidate(
+        `PD${counter++}`,
+        `Attempt ${leftTask.name} after ${rightTask.name}`,
+        steps,
+        `Disabling check: ${leftTask.name} >> ${rightTask.name} >> ${leftTask.name}'`,
+        c.id,
+        normativeSet,
+        [`Paper disabling rule: after '${rightTask.name}' occurs, attempt '${leftTask.name}' again to test whether it is really disabled.`],
+        { paperRule: "Disabling", selectionKey: `disabling|${relation.key}`, selectionTarget: `${leftTask.name} after ${rightTask.name}` }
+      ));
+    }
+  }
+  return out;
+}
+
+function isPaperFormLikeIterativeTask(task) {
+  const leaves = leafTasksOf(task);
+  if (leaves.length < 2) return false;
+  if (!leaves.every(t => t.category === "Interaction Task")) return false;
+  const last = leaves[leaves.length - 1];
+  if (!/^press\b/i.test(last.name)) return false;
+  return leaves.slice(0, -1).every(t => /^enter\b/i.test(t.name));
+}
+
+function paperIterationMutations(normativeSet) {
+  // Paper specialised rule: for an iterative form-like Enter...Press task,
+  // omit one mandatory Enter task in iteration 1 and perform only that field
+  // (plus the Press action needed to complete the attempt) in iteration 2.
+  const out = [];
+  let counter = 1;
+  const iterativeTasks = allTasks().filter(t => t.iterative && isPaperFormLikeIterativeTask(t));
+
+  for (const task of iterativeTasks) {
+    const leaves = leafTasksOf(task);
+    const enterTasks = leaves.slice(0, -1).filter(t => !t.optional);
+    const pressTask = leaves[leaves.length - 1];
+    const subtreeUids = new Set(leaves.map(t => t.uid));
+
+    // Find a one-iteration normative case to provide surrounding context.
+    const source = state.normativeCases.find(c => {
+      const counts = new Map();
+      c.steps.forEach(s => { if (subtreeUids.has(s.uid)) counts.set(s.uid, (counts.get(s.uid) || 0) + 1); });
+      return leaves.every(t => counts.get(t.uid) === 1);
+    });
+    if (!source) continue;
+
+    const indices = source.steps.map((s, i) => subtreeUids.has(s.uid) ? i : -1).filter(i => i >= 0);
+    if (!indices.length) continue;
+    const first = Math.min(...indices), last = Math.max(...indices);
+    const baseSegment = source.steps.slice(first, last + 1);
+
+    for (const omitted of enterTasks) {
+      const firstIteration = baseSegment.filter(step => step.uid !== omitted.uid);
+      const omittedStep = baseSegment.find(step => step.uid === omitted.uid) || stepFromTask(omitted);
+      const pressStep = baseSegment.find(step => step.uid === pressTask.uid) || stepFromTask(pressTask);
+      const secondIteration = [
+        { ...omittedStep, uid: `${omittedStep.uid}#iteration2`, name: `${omittedStep.name} (second iteration only)` },
+        { ...pressStep, uid: `${pressStep.uid}#iteration2`, name: `${pressStep.name} (second iteration)` }
+      ];
+      const steps = source.steps.slice(0, first).concat(firstIteration, secondIteration, source.steps.slice(last + 1));
+      out.push(mutationCandidate(
+        `PI${counter++}`,
+        `Iteration retention check: ${omitted.name}`,
+        steps,
+        `Iteration mutation: omit ${omitted.name} in first iteration; enter it in second`,
+        source.id,
+        normativeSet,
+        [`Paper iteration rule: omit mandatory '${omitted.name}' in the first iteration and perform it in the following iteration to test whether information entered previously is retained between iterations.`],
+        { paperRule: "Iterative task", selectionKey: `iteration|${task.uid}|${omitted.uid}`, selectionTarget: `${task.name}: ${omitted.name}` }
+      ));
+    }
+  }
+  return out;
+}
+
+function dedupeMutationCases(cases) {
+  const seen = new Set();
+  const out = [];
+  for (const c of cases) {
+    const key = `${c.paperRule}|${c.mutation}|${signature(c.steps)}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push(c);
+  }
+  return out;
+}
+
+function deepClone(value) {
+  return JSON.parse(JSON.stringify(value));
+}
+
+function findTaskByUid(task, uid) {
+  if (task.uid === uid) return task;
+  for (const child of task.children) {
+    const found = findTaskByUid(child, uid);
+    if (found) return found;
+  }
+  return null;
+}
+
+function generateOperatorMutation(normativeSet) {
+  if (!els.mutationOperator.checked) return [];
+  const relationKey = els.mutationRelation.value;
+  const replacement = els.mutationReplacement.value;
+  const relation = allRelations().find(r => r.key === relationKey);
+  if (!relation || !replacement) return [];
+
+  const clonedModel = deepClone(state.model);
+  const leftTask = findTaskByUid(clonedModel.root, relation.leftUid);
+  if (!leftTask) return [];
+  const previousRaw = leftTask.rawOperator;
+  leftTask.relationType = replacement;
+  leftTask.rawOperator = `Mutation:${replacement}`;
+
+  const originalModel = state.model;
+  state.model = clonedModel;
+  let paths;
+  try {
+    paths = dedupePaths(generateNodePaths(clonedModel.root));
+  } finally {
+    state.model = originalModel;
+  }
+
+  const normalSigs = normativeSet;
+  const out = [];
+  let counter = 1;
+  paths.forEach(path => {
+    out.push(mutationCandidate(
+      `MP${counter++}`,
+      `Operator mutation ${relation.leftName} → ${relation.rightName}`,
+      path.steps,
+      `Temporal operator change: ${previousRaw || relation.type} → ${replacement}`,
+      "reduced model",
+      normalSigs,
+      [`Tester-selected model-level operator mutation on relation ${relation.leftName} → ${relation.rightName}.`]
+    ));
+  });
+  return out;
+}
+
+function dedupeMutationCases(cases) {
+  const seen = new Set();
+  const out = [];
+  for (const c of cases) {
+    const key = `${c.paperRule}|${c.mutation}|${signature(c.steps)}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push(c);
+  }
+  return out;
+}
+
+function representativeQuality(c) {
+  const executionLength = caseExecutionSteps(c).length;
+  const fullLength = (c.steps || []).length;
+  const sourceNum = Number(String(c.sourceCase || "").replace(/\D/g, "")) || Number.MAX_SAFE_INTEGER;
+  return [executionLength, fullLength, sourceNum, signature(c.steps || [])];
+}
+
+function compareRepresentativeQuality(a, b) {
+  const qa = representativeQuality(a), qb = representativeQuality(b);
+  for (let i = 0; i < qa.length; i++) {
+    if (qa[i] < qb[i]) return -1;
+    if (qa[i] > qb[i]) return 1;
+  }
+  return 0;
+}
+
+function selectRepresentativeMutations(rawCases) {
+  const exact = dedupeMutationCases(rawCases);
+  const stillNormative = exact.filter(c => c.classification === "still normative");
+  const deviating = exact.filter(c => c.classification !== "still normative");
+
+  const groups = new Map();
+  for (const c of deviating) {
+    const key = c.selectionKey || `${c.paperRule || "Other"}|${c.mutation}`;
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(c);
+  }
+
+  const selected = [];
+  let collapsed = 0;
+  for (const [key, group] of groups.entries()) {
+    group.sort(compareRepresentativeQuality);
+    const representative = { ...group[0] };
+    representative.representedCandidateCount = group.length;
+    representative.representedSourceCases = Array.from(new Set(group.map(c => c.sourceCase).filter(Boolean)));
+    // Aggregate source-model Application Tasks across all collapsed path variants,
+    // so the representative does not accidentally show only the dashboard branch
+    // when the same mutation also occurred on an error branch.
+    const responseMap = new Map();
+    group.forEach(candidate => (candidate.sourceResponses || []).forEach(response => {
+      const responseKey = `${response.uid || ""}|${response.name}|${response.category}`;
+      if (!responseMap.has(responseKey)) responseMap.set(responseKey, response);
+    }));
+    representative.sourceResponses = Array.from(responseMap.values());
+    if (group.some(candidate => candidate.responsePolicy === "trigger-removed")) {
+      representative.responsePolicy = "trigger-removed";
+    } else if (representative.sourceResponses.length) {
+      representative.responsePolicy = "source-context";
+    }
+    representative.selectionKey = key;
+    representative.selectionNote = group.length > 1
+      ? `Selected as one representative for ${group.length} deviating candidate occurrences of the same mutation target.`
+      : `Unique deviating mutation target; retained as its representative.`;
+    selected.push(representative);
+    collapsed += Math.max(0, group.length - 1);
+  }
+
+  // Preserve diversity deterministically by grouping results by paper rule, then
+  // ordering representatives by target label. No global "first N" truncation is
+  // applied here; maxCases remains only an emergency upper bound.
+  selected.sort((a, b) => {
+    const r = String(a.paperRule || "Other").localeCompare(String(b.paperRule || "Other"));
+    if (r) return r;
+    return String(a.selectionTarget || a.mutation).localeCompare(String(b.selectionTarget || b.mutation));
+  });
+
+  const bounded = selected.slice(0, state.reduction.maxCases);
+  return {
+    rawCount: rawCases.length,
+    exactUniqueCount: exact.length,
+    exactDuplicatesRemoved: rawCases.length - exact.length,
+    stillNormativeCount: stillNormative.length,
+    deviatingCount: deviating.length,
+    repeatedTargetOccurrencesCollapsed: collapsed,
+    selectedCount: bounded.length,
+    selected: bounded,
+    ruleCounts: bounded.reduce((acc, c) => {
+      const key = c.paperRule || "Other";
+      acc[key] = (acc[key] || 0) + 1;
+      return acc;
+    }, {})
+  };
+}
+
+function generateMutationCases() {
+  if (!state.normativeCases.length) return;
+  const normativeSet = normativeSignatureSet();
+  let raw = [];
+  raw = raw.concat(paperSequenceMutations(normativeSet));
+  raw = raw.concat(paperNonMandatoryOrderMutations(normativeSet));
+  raw = raw.concat(paperOmissionMutations(normativeSet));
+  raw = raw.concat(paperChoiceMutations(normativeSet));
+  raw = raw.concat(paperDisablingMutations(normativeSet));
+  raw = raw.concat(paperIterationMutations(normativeSet));
+
+  const selection = selectRepresentativeMutations(raw);
+  state.mutationCandidates = raw;
+  state.mutationSelection = selection;
+  state.mutationCases = selection.selected.map((c, i) => ({ ...c, id: `M${i + 1}` }));
+  renderMutationCases();
+  rebuildDownstreamArtifacts();
+
+  const summary = Object.entries(selection.ruleCounts).map(([rule, count]) => `${rule}: ${count}`).join(" · ");
+  els.mutationStatus.className = "status ok";
+  els.mutationStatus.innerHTML = `<strong>${selection.rawCount} possible changed case${selection.rawCount === 1 ? "" : "s"} → ${selection.selectedCount} different test example${selection.selectedCount === 1 ? "" : "s"} kept.</strong><br>` +
+    `${selection.stillNormativeCount} case${selection.stillNormativeCount === 1 ? "" : "s"} already matched behaviour allowed by the original model · ` +
+    `${selection.repeatedTargetOccurrencesCollapsed + selection.exactDuplicatesRemoved} repeated version${(selection.repeatedTargetOccurrencesCollapsed + selection.exactDuplicatesRemoved) === 1 ? "" : "s"} grouped instead of shown again.` +
+    (summary ? `<br>Types of changed behaviour kept: ${escapeHtml(summary)}` : "");
+  setEnabled(els.downloadMutations, state.mutationCases.length > 0);
+}
+
+function renderMutationCases() {
+  if (!state.mutationCases.length) {
+    els.mutationCases.className = "case-list empty";
+    els.mutationCases.textContent = "No changed-behaviour cases generated.";
+    return;
+  }
+  els.mutationCases.className = "case-list";
+  els.mutationCases.innerHTML = state.mutationCases.map(renderCaseCard).join("");
+}
+
+function refreshMutationControls() {
+  const relations = allRelations().filter(r => effectiveRelationType(r) !== "unknown");
+  els.mutationRelation.innerHTML = relations.map(r => `<option value="${escapeAttr(r.key)}">${escapeHtml(r.leftName)} — ${escapeHtml(OPERATOR_LABELS[effectiveRelationType(r)] || effectiveRelationType(r))} — ${escapeHtml(r.rightName)}</option>`).join("");
+  updateMutationReplacementOptions();
+  els.generateMutations.disabled = !state.normativeCases.length;
+}
+
+function updateMutationReplacementOptions() {
+  const relation = allRelations().find(r => r.key === els.mutationRelation.value);
+  const current = relation ? effectiveRelationType(relation) : "";
+  const replacements = Object.keys(OPERATOR_LABELS).filter(type => type !== current);
+  els.mutationReplacement.innerHTML = replacements.map(type => `<option value="${type}">${escapeHtml(OPERATOR_LABELS[type])}</option>`).join("");
+}
+
+function allCasesForArtifacts() {
+  return state.normativeCases.concat(state.mutationCases.filter(c => c.classification.startsWith("deviating")));
+}
+
+function scenarioTitle(c) {
+  if (c.type === "normative") return `${c.id} - Normative behaviour`;
+  return `${c.id} - ${c.mutation || "Mutated behaviour"}`;
+}
+
+function gherkinStepLines(steps) {
+  const lines = [];
+  let usedWhen = false;
+  let usedThen = false;
+  steps.forEach((step, index) => {
+    let keyword = "And";
+    if (index === 0) keyword = "Given";
+    else if (step.category === "Application Task") {
+      keyword = usedThen ? "And" : "Then";
+      usedThen = true;
+    } else if (step.category === "Interaction Task") {
+      keyword = usedWhen ? "And" : "When";
+      usedWhen = true;
+    }
+    lines.push(`  ${keyword} ${step.name}`);
+  });
+  return lines;
+}
+
+function generateGherkin(cases) {
+  if (!state.model) return "";
+  const feature = state.model.root.name || "Task-based GUI testing";
+  const blocks = [`Feature: ${feature}`];
+  cases.forEach(c => {
+    const lines = [`Scenario: ${scenarioTitle(c)}`, ...gherkinStepLines(caseExecutionSteps(c))];
+    blocks.push(lines.join("\n"));
+  });
+  return blocks.join("\n\n");
+}
+
+function defaultActionType(step) {
+  if (step.category === "Application Task") return "verify visible";
+  if (step.category === "User Task") return "manual";
+  const n = step.name.toLowerCase();
+  if (n.startsWith("open") || n.startsWith("navigate")) return "open";
+  if (n.startsWith("enter") || n.startsWith("insert") || n.startsWith("type")) return "type";
+  if (n.startsWith("select")) return "select";
+  if (n.startsWith("submit") || n.startsWith("press") || n.startsWith("click") || n.startsWith("switch")) return "click";
+  return step.category === "Interaction Task" ? "click" : "manual";
+}
+
+function buildMappings(cases) {
+  const rows = [];
+  cases.forEach(c => {
+    caseExecutionSteps(c).forEach((step, stepIndex) => {
+      rows.push({
+        caseId: c.id,
+        caseType: c.type === "normative" ? "normative" : "mutated",
+        scenario: scenarioTitle(c),
+        stepIndex: stepIndex + 1,
+        taskUid: step.uid,
+        taskId: step.id,
+        taskName: step.name,
+        taskCategory: step.category,
+        actionType: defaultActionType(step),
+        selector: "",
+        testData: "",
+        expectedResult: step.category === "Application Task" ? step.name : ""
+      });
+    });
+  });
+  return rows;
+}
+
+function renderMapping() {
+  const rows = state.mappings;
+  if (!rows.length) {
+    els.mappingOutput.className = "table-wrap empty";
+    els.mappingOutput.textContent = "No mapping generated.";
+    return;
+  }
+  els.mappingOutput.className = "table-wrap";
+  els.mappingOutput.innerHTML = `<table>
+    <thead><tr><th>Case</th><th>Type</th><th>Task</th><th>Category</th><th>Action</th><th>Selector / target</th><th>Test data</th><th>Expected result</th></tr></thead>
+    <tbody>${rows.map((m, i) => `<tr>
+      <td>${escapeHtml(m.caseId)}</td>
+      <td>${escapeHtml(m.caseType)}</td>
+      <td>${escapeHtml(m.taskName)}</td>
+      <td>${escapeHtml(m.taskCategory)}</td>
+      <td><select class="mapping-input" data-map-index="${i}" data-map-field="actionType">${["open", "type", "click", "select", "verify visible", "verify text", "manual"].map(v => `<option value="${v}" ${m.actionType === v ? "selected" : ""}>${v}</option>`).join("")}</select></td>
+      <td><input class="mapping-input" data-map-index="${i}" data-map-field="selector" value="${escapeAttr(m.selector)}" placeholder="e.g. #loginButton" /></td>
+      <td><input class="mapping-input" data-map-index="${i}" data-map-field="testData" value="${escapeAttr(m.testData)}" /></td>
+      <td><input class="mapping-input" data-map-index="${i}" data-map-field="expectedResult" value="${escapeAttr(m.expectedResult)}" /></td>
+    </tr>`).join("")}</tbody>
+  </table>`;
+  els.mappingOutput.querySelectorAll("[data-map-index]").forEach(control => {
+    control.addEventListener("change", event => {
+      const index = Number(event.target.dataset.mapIndex);
+      const field = event.target.dataset.mapField;
+      state.mappings[index][field] = event.target.value;
+      renderTraceability();
+      renderPlaywright();
+    });
+  });
+}
+
+function renderTraceability() {
+  const rows = state.mappings;
+
+  if (!rows.length) {
+    els.traceabilityOutput.className = "table-wrap empty";
+    els.traceabilityOutput.textContent = "No traceability data.";
+    return;
+  }
+
+  els.traceabilityOutput.className = "table-wrap";
+  els.traceabilityOutput.innerHTML = `<table>
+    <thead><tr><th>Task</th><th>Case</th><th>Scenario</th><th>GUI mapping</th><th>Status</th></tr></thead>
+    <tbody>${rows.map(m => {
+      const status = m.actionType === "manual" ? "Manual" : ((m.selector || "").trim() ? "Mapped" : "Unmapped");
+      return `<tr><td>${escapeHtml(m.taskName)}</td><td>${escapeHtml(m.caseId)}</td><td>${escapeHtml(m.scenario)}</td><td>${escapeHtml(`${m.actionType} ${m.selector}`.trim())}</td><td>${status}</td></tr>`;
+    }).join("")}</tbody>
+  </table>`;
+}
+
+function renderPlaywright() {
+  const cases = allCasesForArtifacts();
+  if (!cases.length || !state.mappings.length) {
+    els.playwrightOutput.textContent = "No Playwright skeleton generated.";
+    return;
+  }
+  const byCaseStep = new Map(state.mappings.map(m => [`${m.caseId}|${m.stepIndex}`, m]));
+  const tests = cases.map(c => {
+    const lines = [`test(${JSON.stringify(scenarioTitle(c))}, async ({ page }) => {`];
+    caseExecutionSteps(c).forEach((step, index) => {
+      const m = byCaseStep.get(`${c.id}|${index + 1}`);
+      if (!m) return lines.push(`  // No mapping row for ${safeComment(step.name)}`);
+      const selector = (m.selector || "").trim();
+      const data = m.testData || "test_data";
+      if (m.actionType === "manual") return lines.push(`  // Manual user task: ${safeComment(step.name)}`);
+      if (!selector) return lines.push(`  // Unmapped: ${safeComment(step.name)} (${m.actionType})`);
+      if (m.actionType === "open") lines.push(`  await page.goto(${JSON.stringify(selector)});`);
+      if (m.actionType === "type") lines.push(`  await page.fill(${JSON.stringify(selector)}, ${JSON.stringify(data)});`);
+      if (m.actionType === "click") lines.push(`  await page.click(${JSON.stringify(selector)});`);
+      if (m.actionType === "select") lines.push(`  await page.selectOption(${JSON.stringify(selector)}, ${JSON.stringify(data)});`);
+      if (m.actionType === "verify visible") lines.push(`  await expect(page.locator(${JSON.stringify(selector)})).toBeVisible();`);
+      if (m.actionType === "verify text") lines.push(`  await expect(page.locator(${JSON.stringify(selector)})).toContainText(${JSON.stringify(m.expectedResult || data)});`);
+    });
+    lines.push("});");
+    return lines.join("\n");
+  });
+  els.playwrightOutput.textContent = `import { test, expect } from '@playwright/test';\n\n${tests.join("\n\n")}`;
+}
+
+function safeComment(text) {
+  return String(text).replace(/[\r\n]+/g, " ");
+}
+
+function rebuildDownstreamArtifacts() {
+  const cases = allCasesForArtifacts();
+  els.gherkinOutput.textContent = cases.length ? generateGherkin(cases) : "No scenarios generated.";
+  state.mappings = buildMappings(cases);
+  renderMapping();
+  renderTraceability();
+  renderPlaywright();
+
+  const enabled = cases.length > 0;
+  setEnabled(els.downloadFeature, enabled);
+  setEnabled(els.downloadMapping, enabled);
+  setEnabled(els.downloadTraceability, enabled);
+  setEnabled(els.downloadPlaywright, enabled);
+}
+
+function reductionReport() {
+  const relations = allRelations();
+  const lines = [
+    "Task2Test reduction report",
+    `Source: ${state.fileName}`,
+    `Root task: ${state.model?.root?.name || ""}`,
+    `Keep user tasks: ${state.reduction.includeUserTasks}`,
+    `Maximum cases: ${state.reduction.maxCases}`,
+    "",
+    "Iteration bounds:"
+  ];
+  allTasks().filter(t => t.iterative).forEach(t => lines.push(`- ${t.name}: max ${state.reduction.iterationBounds[t.uid] || 2}`));
+  lines.push("", "Concurrency decisions:");
+  relations.filter(r => r.type === "concurrency").forEach(r => lines.push(`- ${r.leftName} ||| ${r.rightName}: ${state.reduction.concurrencyStrategies[r.key] || "all"}`));
+  lines.push("", "Disabling decisions:");
+  relations.filter(r => r.type === "disabling").forEach(r => lines.push(`- ${r.leftName} [> ${r.rightName}: ${state.reduction.disablingStrategies[r.key] || "representative"}`));
+  lines.push("", "Enabling with information passing:");
+  relations.filter(r => r.type === "enabling-info").forEach(r => lines.push(`- ${r.leftName} []>> ${r.rightName}: ordering and dependency metadata preserved; concrete data propagation not generated`));
+  if (state.unknownOperators.length) {
+    lines.push("", "Unknown operator mappings:");
+    state.unknownOperators.forEach(op => lines.push(`- ${op}: ${state.reduction.unknownMappings[op]}`));
+  }
+  return lines.join("\n");
+}
+
+function toCsv(rows) {
+  if (!rows.length) return "";
+  const headers = Object.keys(rows[0]);
+  const esc = value => `"${String(value ?? "").replace(/"/g, '""')}"`;
+  return [headers.map(esc).join(","), ...rows.map(row => headers.map(h => esc(row[h])).join(","))].join("\n");
+}
+
+function download(filename, content, type = "text/plain") {
+  const blob = new Blob([content], { type });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 500);
+}
+
+function setEnabled(el, enabled) {
+  el.disabled = !enabled;
+}
+
+function resetGenerated() {
+  state.normativeCases = [];
+  state.mutationCandidates = [];
+  state.mutationCases = [];
+  state.mutationSelection = null;
+  state.mappings = [];
+  if (els.reducedModelOutput) { els.reducedModelOutput.className = "tree empty"; els.reducedModelOutput.textContent = "No reduction has been applied."; }
+  renderNormativeCases();
+  renderMutationCases();
+  rebuildDownstreamArtifacts();
+  setEnabled(els.downloadReduction, false);
+  setEnabled(els.downloadNormative, false);
+  setEnabled(els.generateMutations, false);
+  setEnabled(els.downloadMutations, false);
+  els.mutationStatus.textContent = "";
+}
+
+async function loadXmlFile(file) {
+  const text = await file.text();
+  const { model, warnings } = parseCTTE(text);
+  state.xmlText = text;
+  state.fileName = file.name;
+  state.model = model;
+  state.parserWarnings = warnings;
+  els.fileName.textContent = file.name;
+
+  // Use fixed, documented defaults in the background.
+  // The user-facing reduction and mutation configuration panels are intentionally hidden.
+  initializeReductionState();
+  renderSummary();
+  renderTree();
+  renderReductionControls();
+  resetGenerated();
+  refreshMutationControls();
+
+  const unresolved = unresolvedUnknownOperators();
+  if (!unresolved.length) {
+    generateNormativeCases();
+    generateMutationCases();
+  }
+
+  const warningLines = [...warnings];
+  if (unresolved.length) warningLines.push(`Unsupported operator mappings require a future rule: ${unresolved.join(", ")}.`);
+  const warningText = warningLines.length ? ` Warnings: ${warningLines.join(" | ")}` : "";
+  els.importStatus.className = warningLines.length ? "status warn" : "status ok";
+  els.importStatus.textContent = unresolved.length
+    ? `Imported '${file.name}' and displayed the original structure, but automatic test generation stopped because an unsupported operator was detected.${warningText}`
+    : `Imported '${file.name}'. Generated ${state.normativeCases.length} normative abstract test case${state.normativeCases.length === 1 ? "" : "s"} and ${state.mutationCases.length} selected mutation case${state.mutationCases.length === 1 ? "" : "s"} automatically.${warningText}`;
+}
+
+function escapeHtml(value) {
+  return String(value ?? "").replace(/[&<>"']/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" }[ch]));
+}
+function escapeAttr(value) { return escapeHtml(value); }
+
+let pendingXmlFile = null;
+
+function setImportReady(file) {
+  pendingXmlFile = file || null;
+  const ready = Boolean(pendingXmlFile);
+  els.importXml.disabled = !ready;
+  if (els.headerStart) els.headerStart.disabled = !ready;
+  if (!ready) {
+    els.fileName.textContent = "No file selected.";
+    els.importStatus.className = "status";
+    els.importStatus.textContent = "Step 1: choose a CTTE XML file. Step 2: click ‘Start / Import & analyse’.";
+    return;
+  }
+  els.fileName.textContent = pendingXmlFile.name;
+  els.importStatus.className = "status";
+  els.importStatus.textContent = `Ready: '${pendingXmlFile.name}'. Click “Start / Import & analyse”.`;
+}
+
+async function startImport() {
+  if (!pendingXmlFile) {
+    els.importStatus.className = "status error";
+    els.importStatus.textContent = "Choose a CTTE XML file first.";
+    return;
+  }
+  els.importXml.disabled = true;
+  if (els.headerStart) els.headerStart.disabled = true;
+  els.importStatus.className = "status";
+  els.importStatus.textContent = `Importing and analysing '${pendingXmlFile.name}'...`;
+  try {
+    await loadXmlFile(pendingXmlFile);
+  } catch (error) {
+    state.model = null;
+    els.importStatus.className = "status error";
+    els.importStatus.textContent = error.message;
+    els.fileName.textContent = pendingXmlFile.name;
+    els.generateNormative.disabled = true;
+  } finally {
+    els.importXml.disabled = false;
+    if (els.headerStart) els.headerStart.disabled = false;
+  }
+}
+
+els.xmlFile.addEventListener("change", async event => {
+  const file = event.target.files?.[0] || null;
+  pendingXmlFile = file;
+  if (!file) {
+    els.fileName.textContent = "No file selected.";
+    els.importStatus.className = "status";
+    els.importStatus.textContent = "Choose a CTTE XML file to begin.";
+    return;
+  }
+  els.fileName.textContent = file.name;
+  els.importStatus.className = "status";
+  els.importStatus.textContent = `Importing, analysing, and generating tests from '${file.name}'...`;
+  try {
+    await loadXmlFile(file);
+  } catch (error) {
+    state.model = null;
+    resetGenerated();
+    els.importStatus.className = "status error";
+    els.importStatus.textContent = error.message;
+  }
+});
+
+els.includeUserTasks.addEventListener("change", () => { state.reduction.includeUserTasks = els.includeUserTasks.checked; });
+els.maxCases.addEventListener("change", () => { state.reduction.maxCases = Math.max(10, Number(els.maxCases.value || 300)); });
+els.generateNormative.addEventListener("click", generateNormativeCases);
+els.generateMutations.addEventListener("click", generateMutationCases);
+els.mutationOperator.addEventListener("change", () => {
+  els.operatorMutationControls.classList.toggle("disabled-block", !els.mutationOperator.checked);
+});
+els.mutationRelation.addEventListener("change", updateMutationReplacementOptions);
+
+els.downloadReduction.addEventListener("click", () => download("task2test-reduction-report.txt", reductionReport()));
+els.downloadNormative.addEventListener("click", () => download("task2test-normative-cases.csv", toCsv(state.normativeCases.map(c => ({
+  caseId: c.id,
+  title: c.title,
+  sequence: c.steps.map(s => s.name).join(" -> ")
+}))), "text/csv"));
+els.downloadMutations.addEventListener("click", () => download("task2test-mutation-cases.csv", toCsv(state.mutationCases.map(c => ({
+  caseId: c.id,
+  paperRule: c.paperRule,
+  mutation: c.mutation,
+  sourceCase: c.sourceCase,
+  classification: c.classification,
+  sequence: caseExecutionSteps(c).map(s => s.name).join(" -> "),
+  notes: c.notes.join(" | ")
+}))), "text/csv"));
+els.downloadFeature.addEventListener("click", () => download("task2test.feature", els.gherkinOutput.textContent, "text/plain"));
+els.downloadMapping.addEventListener("click", () => download("task2test-gui-mapping.csv", toCsv(state.mappings.map(m => ({
+  caseId: m.caseId,
+  caseType: m.caseType,
+  scenario: m.scenario,
+  taskId: m.taskId,
+  taskName: m.taskName,
+  taskCategory: m.taskCategory,
+  actionType: m.actionType,
+  selector: m.selector,
+  testData: m.testData,
+  expectedResult: m.expectedResult
+}))), "text/csv"));
+els.downloadTraceability.addEventListener("click", () => download("task2test-traceability.csv", toCsv(state.mappings.map(m => ({
+  taskId: m.taskId,
+  taskName: m.taskName,
+  caseId: m.caseId,
+  caseType: m.caseType,
+  scenario: m.scenario,
+  guiMapping: `${m.actionType} ${m.selector}`.trim(),
+  status: m.actionType === "manual" ? "Manual" : ((m.selector || "").trim() ? "Mapped" : "Unmapped")
+}))), "text/csv"));
+els.downloadPlaywright.addEventListener("click", () => download("task2test.spec.js", els.playwrightOutput.textContent, "text/javascript"));
+
+renderNormativeCases();
+renderMutationCases();
+rebuildDownstreamArtifacts();
+
+// Layout helper: open the same CTTE file chooser from the header button.
+const headerChooseXml = document.getElementById("headerChooseXml");
+if (headerChooseXml && els.xmlFile) {
+  headerChooseXml.addEventListener("click", () => els.xmlFile.click());
+}
+
+</script>
+</body>
+</html>
